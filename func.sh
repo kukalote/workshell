@@ -24,6 +24,10 @@ currentBackupDir () {
 
 # 清理七天前删除文件
 sycleClearBackupDir () {
+    if [ ! -d '$crash_dir' ]
+    then
+	return 0
+    fi
     result=$(find $crash_dir -type d -name 'rm_*' -ctime +7 -print0 | xargs -0 rm -r 2> /dev/null)
     if [ $? =  0 ]
     then
