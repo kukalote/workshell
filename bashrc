@@ -12,14 +12,13 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 
-export lognginx='/var/log/nginx/'
-export confnginx='/etc/nginx/conf.d/'
-export vimsession='/var/vimsession/'
-export languagesh='~/.self_bash/'
-export languagevim='~/.vim/'
-export workmy='/var/www/'
-export workuxin='/var/www/uxin_sites/'
-export worktest='/var/www/test/'
+export lognginx='/var/log/nginx'
+export confnginx='/etc/nginx/conf.d'
+export vimsession='/var/vimsession'
+export mywork='/var/www'
+export uxinwork='/var/www/uxin_sites'
+export testwork='/var/www/test'
+export selfwork=~/workshell
 
 
 
@@ -29,5 +28,4 @@ PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)$ '
 # 命令别名创建
 alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
-
-source ~/.self_bash/func.sh
+source $selfwork/bash/func.sh
