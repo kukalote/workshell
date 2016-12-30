@@ -2,6 +2,7 @@ alias rm="rmbak $*";
 alias svndiffile="svnLog $*";
 
 export crash_dir='/var/crash/'
+export cshell_dir=$selfwork'/cshell'
 export current_work_pid='/tmp/current_work_pid'
 
 # 删除文件时将文件转移至删除备份目录
@@ -105,10 +106,13 @@ svnLog () {
 
 # todo work
 todo () {
-    
+    todo_script=$cshell_dir'/todo.out'
+    $todo_script
 }
 
 
+
+todo
 sycleClearBackupDir
 #rmbak
 #currentBackupDir
