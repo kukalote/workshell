@@ -5,5 +5,11 @@ source $SELFHOME/plug.vim
 " 引入当前目录下的vim配置
 source $SELFHOME/sets.vim
 
+" 命令及快捷键调整
+source $SELFHOME/key_command.vim
+
+" 折叠方案
+source $SELFHOME/fold.vim
+
 " 测试文件
 source $SELFHOME/test.vim
