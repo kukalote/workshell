@@ -103,6 +103,12 @@ svnLog () {
     echo $output | sed -n '/Changed paths:/,/^$/p' | sort | uniq | grep .
 }
 
+# todo work
+todo () {
+    
+}
+
+
 sycleClearBackupDir
 #rmbak
 #currentBackupDir

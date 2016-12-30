@@ -23,9 +23,25 @@ export selfwork=~/workshell
 
 
 #PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
-PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)$ '
+#PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)$ '
+
+
+# zshell powerline 主题配置
+#{
+    # 主题wiki https://github.com/bhilburn/powerlevel9k
+    source /usr/lib/powerlevel9k/powerlevel9k.zsh-theme
+
+    # 时间格式配置
+    #POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
+    #左标,右标信息
+    #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status  history time)
+#}
+
 
 # 命令别名创建
 alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
+
+#引入外部文件
 source $selfwork/bash/func.sh

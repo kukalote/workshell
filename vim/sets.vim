@@ -4,6 +4,7 @@
 " 无BOM 头
 set nobomb
 
+
 " 文件编码
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
@@ -161,11 +162,11 @@ set noerrorbells
 
 " 自动加载vimrc, 无需重启gvim
 "autocmd! bufwritepost _vimrc source %
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " 设置前缀命令
 let mapleader = ","
 " 编辑配置文件
-map <silent> <leader>ee :e $SELFHOME/vimrc<CR>:noh<cr>
+map <silent> <leader>ee :e $SELFHOME/sets.vim<CR>:noh<cr>
 " 加载配置文件 
 map <silent> <leader>em :source $MYVIMRC<CR>:noh<cr>
 
@@ -177,15 +178,6 @@ nmap <C-l> <C-W>l
 
 " 插入模式自动转换
 "imap ex example
-
-
-
-" php 添加注释
-"nmap <C-i> <Esc>I#<Esc>
-" 在行首添加#注释，并取消搜索高亮
-"vmap <C-i> <Esc>:'<,'>s/^/#/g<Esc>:let @/=""<cr>
-"vmap <C-i> <Esc>:'<,'>s/^/#/g<Esc>:noh<cr>
-
 
 
 
@@ -209,4 +201,9 @@ map <leader>< :s/^\(.*\)$/<!-- \1 -->/<CR>:noh<CR>
 
 "
 " 添加php调试输出
-nmap <silent> <leader>var ovar_dump('aaa');exit;<Esc>:w<CR>4blvh%h
+nmap <silent> <leader>var ovar_dump('a');exit;<Esc>:w<CR>4blvh%h
+
+" 重定义:E命令
+"cabbrev E Explore
+"command! E Explore
+command E Explore
