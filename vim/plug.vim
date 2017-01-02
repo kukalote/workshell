@@ -19,25 +19,26 @@
     " The following are examples of different formats supported.
     " Keep Plugin commands between vundle#begin/end.
     " plugin on GitHub repo
-    Plugin 'tpope/vim-fugitive'
+"    Plugin 'tpope/vim-fugitive'
     " plugin from http://vim-scripts.org/vim/scripts.html
 "    Plugin 'L9'
     " Git plugin not hosted on GitHub
-    Plugin 'git://git.wincent.com/command-t.git'
+"    Plugin 'git://git.wincent.com/command-t.git'
     " git repos on your local machine (i.e. when working on your own plugin)
     "Plugin 'file:///home/gmarik/path/to/plugin'
     " The sparkup vim script is in a subdirectory of this repo called vim.
     " Pass the path to set the runtimepath properly.
-    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
     " Install L9 and avoid a Naming conflict if you've already installed a
     " different version somewhere else.
-    Plugin 'ascenator/L9', {'name': 'newL9'}
-
+"    Plugin 'ascenator/L9', {'name': 'newL9'}
+"    Plugin 'nerdtree'
     Bundle 'scrooloose/syntastic'
-
+    Bundle 'taglist.vim'
     Plugin 'scrooloose/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
 
+    Bundle 'Lokaltog/vim-powerline' 
 "    Bundle 'Valloric/YouCompleteMe'
 
 "    Plugin 'shawncplus/phpcomplete.vim'
@@ -125,9 +126,9 @@
 "    let g:Powerline_symbols = 'fancy'
     let g:minBufExplForceSyntaxEnable = 1 
 "    let g:Powerline_theme = 'default'
-    python from powerline.vim import setup as powerline_setup 
-    python powerline_setup() 
-    python del powerline_setup 
+"    python from powerline.vim import setup as powerline_setup 
+"    python powerline_setup() 
+"    python del powerline_setup 
 
     set laststatus=2 
     set guifont=Source\ Code\ Pro\ for\ Powerline:h12 

@@ -12,5 +12,6 @@ set foldmethod=indent    " manual : Folds are created manually.
                          " diff   : Fold text that is not changed.
 
 "set foldclose=all
+"set foldd=all
 " use space to folden
 "nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
