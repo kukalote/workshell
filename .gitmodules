@@ -28,3 +28,4 @@
 [submodule "submoudule_test"]
 	path = submoudule_test
 	url = https://github.com/kukalote/submoudule_test.git
+    branch = master
