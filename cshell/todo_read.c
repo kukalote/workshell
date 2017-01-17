@@ -23,32 +23,87 @@ int main( void ) {
     FILE *fp;
     char *todo_path;
     char line[255];
+    char date[11];
+    char time[9];
+    char message[30];
+    char address[20];
+    char note[30];
     struct Todo todo;
-    unsigned long now_time_stamp;
+    unsigned long time_stamp;
+
+
+
+
+    //todo记录文件
     todo_path = getTodoPath();
 
-    fp = fopen(todo_path, "r");
-    while (fgets(line, 255, (FILE*)fp)) {
-        explodeLine(line, &todo);    
-        now_time_stamp = GetCurrentTimeStamp();
 
-//        printf("%d\n", todo.time_stamp); ;
-//        printf("%d", now_time_stamp); exit(0);
+    //提示用户输出,并先输出格式
+    printf( "Enter the todo jobs : \n");
+
+    printf( "\ninput your todo job time, format like this : \"2016-01-01 12:01:01\"\n");
+    scanf("%s %s", date, time);
+
+    printf( "\ninput your todo job message, format like this : \"my message\" \n");
+    scanf("%s", message);
+
+    printf( "\ninput your todo job address, format like this : \"my address\" \n");
+    scanf("%s", address);
+
+    printf( "\ninput your todo job note, format like this : \"my note\" \n");
+    scanf("%s", note);
+
+    time_stamp = Str2TimeStamp( date, time );
+//printf("%d, %s, %s, %s", time_stamp, message, address, note);
+//exit(0);
+    //打开文件
+    char s[4] =  ";;;";
+    char input[255]="";
+    char time_stamp_str[13];
+    char *str;
+    sprintf(input, "%d;;;%s;;;%s;;;%s\n", time_stamp,  message, address, note);
+    printf("%d %s", sizeof(input), input);
+//    printf("%d %s", sizeof(str), str);
+    exit(0);
 
 
-        if(todo.time_stamp - now_time_stamp < 86400) {
-            printf("请处理事件<%s>, 时间执行时间为 xxx \n", todo.message);
-        }
-        printf("%d 请处理事件<%s>, 时间执行时间为 xxx \n", todo.time_stamp-now_time_stamp, todo.message);
-//        printf("%d",todo.time_stamp - now_time_stamp );
-    }
+//    strcat(input, time_stamp_str);
+//    strcat(input, s);
+//    strcat(input, message);
+//    strcat(input, s);
+//    strcat(input, address);
+//    strcat(input, s);
+//    strcat(input, note);
+//    strcat(input, "\n");
+//printf("\n%s\n", input);
+    fp = fopen(todo_path, "a");
+    fwrite( input, 1 , sizeof(input) , fp );
     fclose(fp);
+
+    //将用户输入转换后保存至记录文件
+
+//    while (fgets(line, 255, (FILE*)fp)) {
+//        explodeLine(line, &todo);    
+//        now_time_stamp = GetCurrentTimeStamp();
+//
+////        printf("%d\n", todo.time_stamp); ;
+////        printf("%d", now_time_stamp); exit(0);
+//
+//
+//        if(todo.time_stamp - now_time_stamp < 86400) {
+//            printf("请处理事件<%s>, 时间执行时间为 xxx \n", todo.message);
+//        }
+//        printf("%d 请处理事件<%s>, 时间执行时间为 xxx \n", todo.time_stamp-now_time_stamp, todo.message);
+////        printf("%d",todo.time_stamp - now_time_stamp );
+//    }
+//    fclose(fp);
 //    fputc(33, fp);
 //    fprintf(fp, "This is testing for fprintf...\n");
 //    fputs("This is testing for fputs...\n", fp);
 
     return 0;
 }
+
 
 
 

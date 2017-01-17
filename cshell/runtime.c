@@ -13,7 +13,7 @@ int main()
     long start, end;
 
     start = 1;
-    end = 100000000;
+    end = 500000000;
 
     start_t = timeStart();
     for(;start<end;start++) 
