@@ -4,14 +4,19 @@
 #include <time.h>
 
 #define TODO_LOG  "workshell/cshell/todo.txt"
-const char s[2] = " ";
+#define DAY_TIME 86400
+
+const char s[4] = ";;;";
 
 struct Todo {
     char * message;
     char * address;
     char * note;
+    char * date;
+    char * time;
     unsigned long time_stamp;
 };
+
 
 char * getTodoPath(void);    
 void explodeLine(char * line, struct Todo *todo);
@@ -25,28 +30,23 @@ int main( void ) {
     char line[255];
     struct Todo todo;
     unsigned long now_time_stamp;
+
     todo_path = getTodoPath();
+//printf("%s", todo_path); exit(0);
 
     fp = fopen(todo_path, "r");
     while (fgets(line, 255, (FILE*)fp)) {
         explodeLine(line, &todo);    
         now_time_stamp = GetCurrentTimeStamp();
 
-//        printf("%d\n", todo.time_stamp); ;
-//        printf("%d", now_time_stamp); exit(0);
-
-
-        if(todo.time_stamp - now_time_stamp < 86400) {
-            printf("请处理事件<%s>, 时间执行时间为 xxx \n", todo.message);
+        if(todo.time_stamp - now_time_stamp < DAY_TIME) {
+            printf("请处理事件<%s>, 时间执行时间为 %s %s \n", todo.message, todo.date, todo.time);
         }
-        printf("%d 请处理事件<%s>, 时间执行时间为 xxx \n", todo.time_stamp-now_time_stamp, todo.message);
+//        printf("%d 请处理事件<%s>, 时间执行时间为 xxx \n", todo.time_stamp-now_time_stamp, todo.message);
+        printf("请处理事件<%s>, 时间执行时间为 %s %s \n", todo.message, todo.date, todo.time);
 //        printf("%d",todo.time_stamp - now_time_stamp );
     }
     fclose(fp);
-//    fputc(33, fp);
-//    fprintf(fp, "This is testing for fprintf...\n");
-//    fputs("This is testing for fputs...\n", fp);
-
     return 0;
 }
 
@@ -61,24 +61,24 @@ char * getTodoPath( void ){
 }
 
 
-void explodeLine(char * line, struct Todo *todo) {
-    char * date;
-    char * time;
-
-    date = strtok(line, s);
-    if( date != NULL ) {
-        time = strtok(NULL, s);
+void explodeLine(char * line, struct Todo *todo) 
+{
+    todo->date = strtok(line, s);
+    if( todo->date != NULL ) {
+        todo->time = strtok(NULL, s);
         todo->message = strtok(NULL, s);
         todo->address = strtok(NULL, s);
         todo->note = strtok(NULL, s);
-        todo->time_stamp = Str2TimeStamp(date, time);
-//printf("%d\n%s\n%s\n%s", todo->time_stamp, todo->message, todo->address, todo->note);
+        todo->time_stamp = Str2TimeStamp(todo->date, todo->time);
+//printf("%s, %s, %d\n%s\n%s\n%s", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
 //exit(0);
     }
-    return;
 }
 
 unsigned long Str2TimeStamp(char * date, char * time) {
+
+    char date_bak[22];
+    char time_bak[14];
 
     int year;
     int month;
@@ -92,14 +92,17 @@ unsigned long Str2TimeStamp(char * date, char * time) {
 
     unsigned long time_stamp;
 
-    year = atoi(strtok(date, date_s));
+    strcpy(date_bak, date);
+    strcpy(time_bak, time);
+
+    year = atoi(strtok(date_bak, date_s));
     month = atoi(strtok(NULL, date_s));
     day  = atoi(strtok(NULL, date_s));
 
-    hour = atoi(strtok(time, time_s));
+
+    hour = atoi(strtok(time_bak, time_s));
     min = atoi(strtok(NULL, time_s));
     sec  = atoi(strtok(NULL, time_s));
-    
     time_stamp = GetTick(year, month, day, hour, min, sec);
     return time_stamp;
 }

@@ -1,6 +1,6 @@
 alias rm="rmbak $*";
 alias svndiffile="svnLog $*";
-
+alias ld='lsdir $*'
 export crash_dir='/var/crash/'
 export cshell_dir=$selfwork'/cshell'
 export current_work_pid='/tmp/current_work_pid'
@@ -111,9 +111,12 @@ todo () {
 }
 
 
+lsdir() {
+    ls -lF $* | grep "/$"
+}
 
 todo
-sycleClearBackupDir
+#sycleClearBackupDir
 #rmbak
 #currentBackupDir
 #worknow
