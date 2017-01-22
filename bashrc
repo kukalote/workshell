@@ -7,15 +7,15 @@ systemctl start php-fpm
 systemctl start mysql
 
 # 配置
-export GREP_OPTIONS='--color=auto'
+export EDITOR=vim
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 
-export lognginx='/var/log/nginx'
-export confnginx='/etc/nginx/conf.d'
+export nginxlog='/var/log/nginx'
+export nginxconf='/etc/nginx/conf.d'
 export vimsession='/var/vimsession'
-export mywork='/var/www'
 export uxinwork='/var/www/uxin_sites'
 export testwork='/var/www/test'
 export selfwork=~/workshell

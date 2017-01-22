@@ -1,12 +1,13 @@
 alias rm="rmbak $*";
+alias ld="lsdir $*"
 alias svndiffile="svnLog $*";
-alias ld='lsdir $*'
-export crash_dir='/var/crash/'
+export crash_dir="/var/crash/"
 export cshell_dir=$selfwork'/cshell'
 export current_work_pid='/tmp/current_work_pid'
 
 # 删除文件时将文件转移至删除备份目录
-rmbak () {
+rmbak () 
+{
     backdir=`currentBackupDir`
     if [ ! -d '$backdir' ]
     then
@@ -17,14 +18,16 @@ rmbak () {
 }
 
 # 返回删除备份目录地址
-currentBackupDir () {
+currentBackupDir () 
+{
     date_dir=$(date +%Y%m%d)
     current_dir=$crash_dir'rm_'$date_dir
     echo  $current_dir
 }
 
 # 清理七天前删除文件
-sycleClearBackupDir () {
+sycleClearBackupDir () 
+{
     result=$(find $crash_dir -type d -name 'rm_*' -ctime +7 -print0 | xargs -0 rm -r 2> /dev/null)
     if [ $? =  0 ]
     then
@@ -32,8 +35,10 @@ sycleClearBackupDir () {
     fi
     return 0
 } 
+
 # 重置/切换当前工作目录
-worknow () {
+worknow () 
+{
     if [ $# -gt 0 ]
     then
         # 将 $1 写入文件，并保存为当前工作目录
@@ -47,14 +52,16 @@ worknow () {
 }
 
 # 设置当前工作目录
-resetWorkDir () {
-#    export workcurrent=$1
-    echo $1 > $current_work_pid
+resetWorkDir () 
+{
+    workdir=`realpath $1`
+    echo $workdir > $current_work_pid
     return 0
 }
 
 # 获取工作目录
-getCurrentWorkDir () {
+getCurrentWorkDir () 
+{
     # 如果无文件
     if [ ! -f $current_work_pid ]
     then
@@ -68,13 +75,15 @@ getCurrentWorkDir () {
 }
 
 # 将当前目录设定为工作目录
-setworknow () {
+setworknow () 
+{
     worknow `pwd`
 }
 
 
 # svn 查看当前用户的参数
-svnLog () {
+svnLog () 
+{
     user=''
     output=''
     while getopts "n:u:r:" opt;
@@ -105,18 +114,20 @@ svnLog () {
 }
 
 # todo work
-todo () {
+todo () 
+{
     todo_script=$cshell_dir'/todo.out'
     $todo_script
 }
 
 
-lsdir() {
+lsdir() 
+{
     ls -lF $* | grep "/$"
 }
 
-todo
-#sycleClearBackupDir
+#todo
+sycleClearBackupDir
 #rmbak
 #currentBackupDir
 #worknow
