@@ -1,8 +1,11 @@
 unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS);
 
-// 通过时间字符串生成时间戳
-unsigned long Str2TimeStamp(char * date, char * time) {
+//char * getRealString( char * option );
+//int getStringNum( char *str_array, int judge_new_line );
 
+// 通过时间字符串生成时间戳
+unsigned long Str2TimeStamp(char * date, char * time) 
+{
     char date_bak[22];
     char time_bak[14];
 
@@ -34,7 +37,8 @@ unsigned long Str2TimeStamp(char * date, char * time) {
 }
 
 //输入各自时间，返回时间戳
-unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS) {
+unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS) 
+{
     struct tm stm;
 
     memset(&stm,0,sizeof(stm));
@@ -51,8 +55,40 @@ unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS) {
 
 
 //返回当前时间至1970-01-01时间戳
-unsigned long GetCurrentTimeStamp(void) {
+unsigned long GetCurrentTimeStamp(void) 
+{
     time_t second;
     second = time(NULL);
     return (unsigned long)second;
+}
+
+
+int getRealStringNum( char *str_array, int judge_new_line ) 
+{
+    int i = 0;
+    while ( str_array[i] != EOF && str_array[i] ) {
+        if( judge_new_line==1 && str_array[i] == '\n' ) {
+            break;
+        }
+        i++;
+    }
+    return i;
+}
+char *getRealString( char * option ) 
+{
+    int i;
+    int option_num;
+    option_num = getRealStringNum( option, 1 );
+    char *option_bak = malloc( option_num );
+    strncpy( option_bak, option, option_num );
+    return (option_bak);
+}
+
+
+char * getOption( void ) 
+{
+    char option[255];
+    int option_num = 0;
+    fgets( option, 1024, stdin );
+    return getRealString( option );
 }
