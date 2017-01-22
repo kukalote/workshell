@@ -2,9 +2,11 @@
 #include <stdlib.h> 
 #include <string.h>
 #include <time.h>
+#include "include/bashcolorsets.h"
+#include "include/common.h"
+#include "include/config.h"
 
 #define TODO_LOG  "workshell/cshell/todo.txt"
-#define DAY_TIME 86400
 
 const char s[4] = ";;;";
 
@@ -20,11 +22,15 @@ struct Todo {
 
 char * getTodoPath(void);    
 void explodeLine(char * line, struct Todo *todo);
-unsigned long Str2TimeStamp(char * date, char * time);
-unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS);
-unsigned long GetCurrentTimeStamp(void);
+void showTodoLog();
 
 int main( void ) {
+    showTodoLog();
+    return 0;
+}
+
+void showTodoLog( )
+{
     FILE *fp;
     char *todo_path;
     char line[255];
@@ -39,17 +45,16 @@ int main( void ) {
         explodeLine(line, &todo);    
         now_time_stamp = GetCurrentTimeStamp();
 
-        if(todo.time_stamp - now_time_stamp < DAY_TIME) {
-            printf("请处理事件<%s>, 时间执行时间为 %s %s \n", todo.message, todo.date, todo.time);
+        if(todo.time_stamp - now_time_stamp < THREE_DAY_TIME) {
+            printf( "\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+                COLOR_LIGHT_RED, todo.message, COLOR_NC,
+                COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
+                COLOR_CYAN, todo.address, COLOR_NC,
+                COLOR_PURPLE, todo.date, todo.time, COLOR_NC);
         }
-//        printf("%d 请处理事件<%s>, 时间执行时间为 xxx \n", todo.time_stamp-now_time_stamp, todo.message);
-        printf("请处理事件<%s>, 时间执行时间为 %s %s \n", todo.message, todo.date, todo.time);
-//        printf("%d",todo.time_stamp - now_time_stamp );
     }
     fclose(fp);
-    return 0;
 }
-
 
 
 char * getTodoPath( void ){
@@ -69,60 +74,10 @@ void explodeLine(char * line, struct Todo *todo)
         todo->message = strtok(NULL, s);
         todo->address = strtok(NULL, s);
         todo->note = strtok(NULL, s);
+        strtok(todo->note, "\n");
         todo->time_stamp = Str2TimeStamp(todo->date, todo->time);
-//printf("%s, %s, %d\n%s\n%s\n%s", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
+//printf("%s, %s, %d---%s---%s---%s---", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
 //exit(0);
     }
 }
 
-unsigned long Str2TimeStamp(char * date, char * time) {
-
-    char date_bak[22];
-    char time_bak[14];
-
-    int year;
-    int month;
-    int day;
-
-    int hour;
-    int min;
-    int sec;
-    char date_s[2] = "-";
-    char time_s[2] = ":";
-
-    unsigned long time_stamp;
-
-    strcpy(date_bak, date);
-    strcpy(time_bak, time);
-
-    year = atoi(strtok(date_bak, date_s));
-    month = atoi(strtok(NULL, date_s));
-    day  = atoi(strtok(NULL, date_s));
-
-
-    hour = atoi(strtok(time_bak, time_s));
-    min = atoi(strtok(NULL, time_s));
-    sec  = atoi(strtok(NULL, time_s));
-    time_stamp = GetTick(year, month, day, hour, min, sec);
-    return time_stamp;
-}
-unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS) {
-    struct tm stm;
-
-    memset(&stm,0,sizeof(stm));
-
-    stm.tm_year=iY-1900;
-    stm.tm_mon=iM-1;
-    stm.tm_mday=iD;
-    stm.tm_hour=iH-8;
-    stm.tm_min=iMin;
-    stm.tm_sec=iS;
-
-    return (unsigned long) mktime(&stm);
-}
-
-unsigned long GetCurrentTimeStamp(void) {
-    time_t second;
-    second = time(NULL);
-    return (unsigned long)second;
-}

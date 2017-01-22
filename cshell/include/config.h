@@ -1,0 +1,2 @@
+#define DAY_TIME 86400
+#define THREE_DAY_TIME 86400
