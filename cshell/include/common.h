@@ -1,7 +1,15 @@
-unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS);
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
-//char * getRealString( char * option );
-//int getStringNum( char *str_array, int judge_new_line );
+#define LINE_NUM 255
+#define STRING_END '\0'
+#define NEW_LINE '\n'
+
+
+#define APPEND_FILE "a"
+
+unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS);
 
 // 通过时间字符串生成时间戳
 unsigned long Str2TimeStamp(char * date, char * time) 
@@ -62,33 +70,25 @@ unsigned long GetCurrentTimeStamp(void)
     return (unsigned long)second;
 }
 
-
-int getRealStringNum( char *str_array, int judge_new_line ) 
+FILE *openFile( char *file_path, char *mode )
 {
-    int i = 0;
-    while ( str_array[i] != EOF && str_array[i] ) {
-        if( judge_new_line==1 && str_array[i] == '\n' ) {
-            break;
-        }
-        i++;
-    }
-    return i;
-}
-char *getRealString( char * option ) 
-{
-    int i;
-    int option_num;
-    option_num = getRealStringNum( option, 1 );
-    char *option_bak = malloc( option_num );
-    strncpy( option_bak, option, option_num );
-    return (option_bak);
+    FILE *fp;
+    fp = fopen( file_path, mode );
+    return fp;
 }
 
-
-char * getOption( void ) 
+void closeFile( FILE *fp )
 {
-    char option[255];
-    int option_num = 0;
-    fgets( option, 1024, stdin );
-    return getRealString( option );
+    fclose( fp );
+}
+
+void writeOption( FILE *fp )
+{
+    char input_content[LINE_NUM];
+    fgets( input_content, LINE_NUM, stdin );
+    fputs( input_content, fp );
+}
+void writeFile( FILE *fp, char *content )
+{
+    fputs( content, fp );
 }
