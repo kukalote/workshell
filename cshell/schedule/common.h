@@ -89,12 +89,12 @@ void showTodoLog( )
 //printf("%s", todo_path); exit(0);
 
     fp = fopen(todo_path, "r");
+    current_time_stamp = GetCurrentTimeStamp();
     while (fgets(line, LINE_NUM, (FILE*)fp)) {
-        explodeLine(line, &todo);    
-        current_time_stamp = GetCurrentTimeStamp();
+        explodeLine( line, &todo );    
 
         //提醒期
-        if( current_time_stamp > todo.time_stamp && (current_time_stamp - todo.time_stamp) < THREE_DAY_TIME) {
+        if( current_time_stamp > todo.time_stamp && (current_time_stamp - todo.time_stamp) < THREE_DAY_TIME ) {
             printf( "\n待执行 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
                 COLOR_LIGHT_GREEN, todo.message, COLOR_NC,
                 COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
