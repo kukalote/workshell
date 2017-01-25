@@ -2,12 +2,13 @@
 #include <time.h>
 #include <string.h>
 
-#define LINE_NUM 255
-#define STRING_END '\0'
-#define NEW_LINE '\n'
+#define LINE_NUM    255
+#define STRING_END  '\0'
+#define NEW_LINE    '\n'
+#define SEPERATE_BLANK    ' '
 
 
-#define APPEND_FILE "a"
+#define FILE_MODE_APPEND "a"
 
 unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS);
 
