@@ -93,29 +93,27 @@ void writeFile( FILE *fp, char *content )
 {
     fputs( content, fp );
 }
-void strPart( char *src, int start, int len ) 
+
+
+void substr( char *src, int start, int len ) 
 {
+    int current = 0;
     char *p = src;
     char *q = src;
-    int sycle = 0;
-    --len;
+
+    p += start;
+
     while( *p ) {
-        if(  start < sycle && sycle > len ) {
-//printf("%d, %d, %d, %c\n", start, len, sycle, *p);
-printf(">>>%c\n", *p);
-            p++;
-            sycle++;
-            continue;
+        if( current < len ) {
+            *q++ = *p;
         }
-printf("-->%c\n", *p);
-        *q++ = *p++;
-        sycle++;
+        current++;
+        p++;
     }
     *q = '\0';
-    printf("%s\n", src);
 }
 
-void del_char(char* str,char ch)
+void strRemoveChar( char* str,char ch )
 {
     char *p = str;
     char *q = str;
@@ -125,5 +123,5 @@ void del_char(char* str,char ch)
         }
         q++;
     }
-    *p='\0';
+    *p = '\0';
 } 
