@@ -72,41 +72,71 @@ char *inputProgram( char *todo_line )
     note[strlen(note)-1] = STRING_END;
     todo.note = note;
 
-    sprintf( todo_line, "%s;;;%s;;;%s;;;%s;;;%s\n", todo.date, todo.time, todo.message, todo.address, todo.note);
+    sprintf( todo_line, " %s;;;%s;;;%s;;;%s;;;%s\n", todo.date, todo.time, todo.message, todo.address, todo.note);
     printf( "finish your input\n" );
 }
 
+void disableTodoLog( FILE *fp, char *line );
+
+int flen = 0;
 
 void showTodoLog( )
 {
     FILE *fp;
     char *todo_path;
     char line[255];
+    char line_str[255] ;
     struct Todo todo;
     unsigned long current_time_stamp;
+    char line_flag[]=" ";
+    int len = 0;
 
     todo_path = getTodoPath();
 //printf("%s", todo_path); exit(0);
 
-    fp = fopen(todo_path, "r");
+    fp = fopen(todo_path, "r+");
     current_time_stamp = GetCurrentTimeStamp();
-    while (fgets(line, LINE_NUM, (FILE*)fp)) {
-        explodeLine( line, &todo );    
+    while ( fgets(line, LINE_NUM, (FILE*)fp) ) {
+        fseek( fp, len, SEEK_SET );
+        strncpy( line_flag, line, 1 );
+        strPart( line, 1, strlen(line)-1 );
 
+
+printf( ">>>%s<<", line ); exit( 0 );
+
+        if(0==strcmp(line_flag, "#")) {
+            continue;
+        }
+
+        strcpy( line_str, line );
+        explodeLine( line, &todo );    
+//printf( "%s\n", line_str );
+//exit(0);
         //提醒期
         if( current_time_stamp > todo.time_stamp && (current_time_stamp - todo.time_stamp) < THREE_DAY_TIME ) {
             printf( "\n待执行 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
                 COLOR_LIGHT_GREEN, todo.message, COLOR_NC,
                 COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
                 COLOR_CYAN, todo.address, COLOR_NC,
-                COLOR_PURPLE, todo.date, todo.time, COLOR_NC);
+                COLOR_PURPLE, todo.date, todo.time, COLOR_NC );
         } else if( current_time_stamp > todo.time_stamp ) {
             printf( "\n已过时 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
                 COLOR_LIGHT_RED, todo.message, COLOR_NC,
                 COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
                 COLOR_CYAN, todo.address, COLOR_NC,
-                COLOR_PURPLE, todo.date, todo.time, COLOR_NC);
+                COLOR_PURPLE, todo.date, todo.time, COLOR_NC );
+            fputs( "#", fp );
         }
+        len += strlen( line );
+        fseek( fp, len, SEEK_SET );
     }
     fclose(fp);
+}
+
+void disableTodoLog( FILE *fp, char *line ) 
+{
+    int fleng;
+    flen += strlen( line );
+    fseek( fp, flen, SEEK_SET );
+    fprintf( fp, "# %s\n",line );
 }
