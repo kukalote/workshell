@@ -20,8 +20,10 @@ char *getTodoPath( void )
     strcat( home, TODO_LOG );
     return home;
 }
-void explodeLine(char *line, struct Todo *todo) 
+void explodeLine(char *line_origin, struct Todo *todo) 
 {
+    char line[255];
+    strcpy( line, line_origin );
     todo->date = strtok(line, SEPERATE_TODO);
     if( todo->date != NULL ) {
         todo->time = strtok(NULL, SEPERATE_TODO);
@@ -30,8 +32,8 @@ void explodeLine(char *line, struct Todo *todo)
         todo->note = strtok(NULL, SEPERATE_TODO);
         strtok(todo->note, "\n");
         todo->time_stamp = Str2TimeStamp(todo->date, todo->time);
-//printf("%s, %s, %d---%s---%s---%s---", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
-//exit(0);
+printf("%s, %s, %d---%s---%s---%s---", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
+exit(0);
     }
 }
 char *inputProgram( char *todo_line )
@@ -89,29 +91,27 @@ void showTodoLog( )
     struct Todo todo;
     unsigned long current_time_stamp;
     char line_flag[]=" ";
+    char line_bak[255];
     int len = 0;
 
     todo_path = getTodoPath();
-//printf("%s", todo_path); exit(0);
 
     fp = fopen(todo_path, "r+");
     current_time_stamp = GetCurrentTimeStamp();
     while ( fgets(line, LINE_NUM, (FILE*)fp) ) {
         fseek( fp, len, SEEK_SET );
         strncpy( line_flag, line, 1 );
-        strPart( line, 1, strlen(line)-1 );
+        strcpy( line_bak, line );
+        substr( line_bak, 1, strlen(line)-1 );
 
-
-printf( ">>>%s<<", line ); exit( 0 );
-
-        if(0==strcmp(line_flag, "#")) {
+        if( strcmp(line_flag, "#") == 0 ) {
+            len += strlen( line );
+            fseek( fp, len, SEEK_SET );
             continue;
         }
 
-        strcpy( line_str, line );
-        explodeLine( line, &todo );    
-//printf( "%s\n", line_str );
-//exit(0);
+        explodeLine( line_bak, &todo );    
+
         //提醒期
         if( current_time_stamp > todo.time_stamp && (current_time_stamp - todo.time_stamp) < THREE_DAY_TIME ) {
             printf( "\n待执行 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
