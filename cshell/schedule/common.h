@@ -20,10 +20,8 @@ char *getTodoPath( void )
     strcat( home, TODO_LOG );
     return home;
 }
-void explodeLine(char *line_origin, struct Todo *todo) 
+void explodeLine(char *line, struct Todo *todo) 
 {
-    char line[255];
-    strcpy( line, line_origin );
     todo->date = strtok(line, SEPERATE_TODO);
     if( todo->date != NULL ) {
         todo->time = strtok(NULL, SEPERATE_TODO);
@@ -32,8 +30,8 @@ void explodeLine(char *line_origin, struct Todo *todo)
         todo->note = strtok(NULL, SEPERATE_TODO);
         strtok(todo->note, "\n");
         todo->time_stamp = Str2TimeStamp(todo->date, todo->time);
-printf("%s, %s, %d---%s---%s---%s---", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
-exit(0);
+//printf("%s, %s, %d---%s---%s---%s---", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
+//exit(0);
     }
 }
 char *inputProgram( char *todo_line )
@@ -95,6 +93,7 @@ void showTodoLog( )
     int len = 0;
 
     todo_path = getTodoPath();
+//printf("%s", todo_path); exit(0);
 
     fp = fopen(todo_path, "r+");
     current_time_stamp = GetCurrentTimeStamp();
@@ -110,9 +109,13 @@ void showTodoLog( )
             continue;
         }
 
+        strcpy( line_str, line_bak );
         explodeLine( line_bak, &todo );    
 
         //提醒期
+        //将执行，提示(3天之前)
+        //准备执行,提示(3天内 )
+        //已过时,提示(过时3天内)
         if( current_time_stamp > todo.time_stamp && (current_time_stamp - todo.time_stamp) < THREE_DAY_TIME ) {
             printf( "\n待执行 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
                 COLOR_LIGHT_GREEN, todo.message, COLOR_NC,
