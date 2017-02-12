@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h> 
-#include <string.h>
-#include "../include/config.h"
-#include "../include/common.h"
 #include "../schedule/common.h"
 
 
@@ -14,7 +9,7 @@ int main( void )
 
     inputProgram( todo_line );
 
-    fp = openFile( todo_path, FILE_MODE_APPEND );
+    fp = openFile( todo_path, F_APPEND );
     writeFile( fp, todo_line );
     closeFile( fp );
 //    printf( ">>%s<<\n", todo_line );

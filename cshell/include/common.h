@@ -1,14 +1,13 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-
-#define LINE_NUM    255
-#define STRING_END  '\0'
-#define NEW_LINE    '\n'
-#define SEPERATE_BLANK    ' '
+#include "config.h"
+#include "tool.h"
 
 
-#define FILE_MODE_APPEND "a"
+
+
 
 unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS);
 
@@ -125,3 +124,34 @@ void strRemoveChar( char* str,char ch )
     }
     *p = '\0';
 } 
+
+
+void formatData( char *date )
+{
+    char format_date[11];
+    char *has_flag = strpbrk( date, "-" );
+    int len = strlen(date);
+
+    if( !has_flag && len==8 ) {
+        sprintf( format_date, "%c%c%c%c-%c%c-%c%c\0", date[0], date[1],
+            date[2], date[3] ,
+            date[4], date[5] ,
+            date[6], date[7] );
+        strcpy( date, format_date );
+    }
+//    printf("%s", format_date);
+}
+
+void formatTime( char *time )
+{
+    char format_time[9];
+    char *has_flag = strpbrk( time, ":" );
+    int len = strlen(time);
+
+    if( !has_flag && (len==6 || len==4) ) {
+        sprintf( format_time, "%c%c:%c%c:00", time[0], time[1],
+            time[2], time[3] );
+        strcpy( time, format_time );
+    }
+//    printf("%s", format_time);
+}

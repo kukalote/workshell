@@ -1,16 +1,24 @@
 #include "../include/bashcolorsets.h"
+#include "../include/common.h"
+
 #define TODO_LOG "/schedule.log"
 #define WORK_DIR "/workshell/cshell/schedule"
 #define SEPERATE_TODO ";;;"
+#define DISABLE_FLAG "#"
 
 struct Todo {
-    char *message;
-    char *address;
-    char *note;
-    char *date;
-    char *time;
+    char message[30];
+    char address[30];
+    char note[20];
+    char date[11];
+    char time[9];
     unsigned long time_stamp;
 };
+
+//struct SCHEDULE_LIST {
+//    struct Todo *data;
+//    struct SCHEDULE_LIST *next;
+//};
 
 // 获取日程记录地址
 char *getTodoPath( void )
@@ -22,13 +30,13 @@ char *getTodoPath( void )
 }
 void explodeLine(char *line, struct Todo *todo) 
 {
-    todo->date = strtok(line, SEPERATE_TODO);
+    strcpy( todo->date, strtok(line, SEPERATE_TODO) );
     if( todo->date != NULL ) {
-        todo->time = strtok(NULL, SEPERATE_TODO);
-        todo->message = strtok(NULL, SEPERATE_TODO);
-        todo->address = strtok(NULL, SEPERATE_TODO);
-        todo->note = strtok(NULL, SEPERATE_TODO);
-        strtok(todo->note, "\n");
+        strcpy( todo->time, strtok(NULL, SEPERATE_TODO) );
+        strcpy( todo->message, strtok(NULL, SEPERATE_TODO) );
+        strcpy( todo->address, strtok(NULL, SEPERATE_TODO) );
+        strcpy( todo->note, strtok(NULL, SEPERATE_TODO) );
+        strtok( todo->note, "\n" );
         todo->time_stamp = Str2TimeStamp(todo->date, todo->time);
 //printf("%s, %s, %d---%s---%s---%s---", todo->date, todo->time, todo->time_stamp, todo->message, todo->address, todo->note);
 //exit(0);
@@ -40,70 +48,60 @@ char *inputProgram( char *todo_line )
     //提示用户输出,并先输出格式
     printf( "Enter the todo jobs : \n");
 
-    char date[10];
-    char time[9];
-    char message[LINE_NUM];
-    char address[LINE_NUM];
-    char note[LINE_NUM];
+    printf( "\ninput your todo job date, format like this : \"20170101\"\n");
+    fgets( todo.date, LINE_NUM, stdin );
+    todo.date[strlen(todo.date)-1] = STRING_END;
+    formatData(todo.date);
 
-
-    printf( "\ninput your todo job date, format like this : \"2016-01-01\"\n");
-    fgets( date, LINE_NUM, stdin );
-    date[strlen(date)-1] = STRING_END;
-    todo.date = date;
-
-    printf( "\ninput your todo job time, format like this : \"12:01:01\"\n");
-    fgets( time, LINE_NUM, stdin );
-    time[strlen(time)-1] = STRING_END;
-    todo.time = time;
+    printf( "\ninput your todo job time, format like this : \"2359\"\n");
+    fgets( todo.time, LINE_NUM, stdin );
+    todo.time[strlen(todo.time)-1] = STRING_END;
+    formatTime(todo.time);
 
     printf( "\ninput your todo job message, format like this : \"my message\" \n");
-    fgets( message, LINE_NUM, stdin );
-    message[strlen(message)-1] = STRING_END;
-    todo.message = message;
+    fgets( todo.message, LINE_NUM, stdin );
+    todo.message[strlen(todo.message)-1] = STRING_END;
 
     printf( "\ninput your todo job address, format like this : \"my address\" \n");
-    fgets( address, LINE_NUM, stdin );
-    address[strlen(address)-1] = STRING_END;
-    todo.address = address;
+    fgets( todo.address, LINE_NUM, stdin );
+    todo.address[strlen(todo.address)-1] = STRING_END;
 
     printf( "\ninput your todo job note, format like this : \"my note\" \n");
-    fgets( note, LINE_NUM, stdin );
-    note[strlen(note)-1] = STRING_END;
-    todo.note = note;
+    fgets( todo.note, LINE_NUM, stdin );
+    todo.note[strlen(todo.note)-1] = STRING_END;
 
     sprintf( todo_line, " %s;;;%s;;;%s;;;%s;;;%s\n", todo.date, todo.time, todo.message, todo.address, todo.note);
     printf( "finish your input\n" );
 }
 
-void disableTodoLog( FILE *fp, char *line );
 
-int flen = 0;
 
 void showTodoLog( )
 {
     FILE *fp;
     char *todo_path;
-    char line[255];
-    char line_str[255] ;
+    char line[LINE_NUM];
+    char line_str[LINE_NUM] ;
     struct Todo todo;
     unsigned long current_time_stamp;
     char line_flag[]=" ";
-    char line_bak[255];
+    char line_bak[LINE_NUM];
     int len = 0;
 
     todo_path = getTodoPath();
 //printf("%s", todo_path); exit(0);
 
-    fp = fopen(todo_path, "r+");
+    fp = fopen(todo_path, F_READWRTE);
     current_time_stamp = GetCurrentTimeStamp();
+
+    
     while ( fgets(line, LINE_NUM, (FILE*)fp) ) {
         fseek( fp, len, SEEK_SET );
         strncpy( line_flag, line, 1 );
         strcpy( line_bak, line );
         substr( line_bak, 1, strlen(line)-1 );
 
-        if( strcmp(line_flag, "#") == 0 ) {
+        if( strcmp(line_flag, DISABLE_FLAG) == 0 ) {
             len += strlen( line );
             fseek( fp, len, SEEK_SET );
             continue;
@@ -128,7 +126,7 @@ void showTodoLog( )
                 COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
                 COLOR_CYAN, todo.address, COLOR_NC,
                 COLOR_PURPLE, todo.date, todo.time, COLOR_NC );
-            fputs( "#", fp );
+            fputs( DISABLE_FLAG, fp );
         }
         len += strlen( line );
         fseek( fp, len, SEEK_SET );
@@ -136,10 +134,5 @@ void showTodoLog( )
     fclose(fp);
 }
 
-void disableTodoLog( FILE *fp, char *line ) 
-{
-    int fleng;
-    flen += strlen( line );
-    fseek( fp, flen, SEEK_SET );
-    fprintf( fp, "# %s\n",line );
-}
+
+
