@@ -154,7 +154,7 @@ void showTodoLog( )
     doing_job = linkReset( doing_job );
     done_job  = linkReset( done_job );
 
-    while( todo_job->item ) {
+    while( todo_job && todo_job->item ) {
         printf( "\n未开始 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
             COLOR_LIGHT_BLUE, todo_job->item->message, COLOR_NC,
             COLOR_LIGHT_BLUE, todo_job->item->note, COLOR_NC,
@@ -163,7 +163,7 @@ void showTodoLog( )
         todo_job = linkNext( todo_job );
     }
 
-    while( doing_job->item ) {
+    while( doing_job && doing_job->item ) {
         printf( "\n进行中 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
             COLOR_LIGHT_GREEN, doing_job->item->message, COLOR_NC,
             COLOR_LIGHT_BLUE, doing_job->item->note, COLOR_NC,
@@ -172,7 +172,7 @@ void showTodoLog( )
         doing_job = linkNext( doing_job );
     }
 
-    while( done_job->item ) {
+    while( done_job && done_job->item ) {
         printf( "\n已过时 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
             COLOR_LIGHT_RED, done_job->item->message, COLOR_NC,
             COLOR_LIGHT_BLUE, done_job->item->note, COLOR_NC,
