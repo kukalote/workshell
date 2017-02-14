@@ -1,12 +1,13 @@
 #include "../include/bashcolorsets.h"
 #include "../include/common.h"
+#include "../include/linklist.h"
 
 #define TODO_LOG "/schedule.log"
 #define WORK_DIR "/workshell/cshell/schedule"
 #define SEPERATE_TODO ";;;"
 #define DISABLE_FLAG "#"
 
-struct Todo {
+struct linkobj {
     char message[30];
     char address[30];
     char note[20];
@@ -28,7 +29,7 @@ char *getTodoPath( void )
     strcat( home, TODO_LOG );
     return home;
 }
-void explodeLine(char *line, struct Todo *todo) 
+void explodeLine(char *line, struct linkobj *todo) 
 {
     strcpy( todo->date, strtok(line, SEPERATE_TODO) );
     if( todo->date != NULL ) {
@@ -44,7 +45,7 @@ void explodeLine(char *line, struct Todo *todo)
 }
 char *inputProgram( char *todo_line )
 {
-    struct Todo todo;
+    struct linkobj todo;
     //提示用户输出,并先输出格式
     printf( "Enter the todo jobs : \n");
 
@@ -82,7 +83,6 @@ void showTodoLog( )
     char *todo_path;
     char line[LINE_NUM];
     char line_str[LINE_NUM] ;
-    struct Todo todo;
     unsigned long current_time_stamp;
     char line_flag[]=" ";
     char line_bak[LINE_NUM];
@@ -94,7 +94,10 @@ void showTodoLog( )
     fp = fopen(todo_path, F_READWRTE);
     current_time_stamp = GetCurrentTimeStamp();
 
-    
+    struct linklist *todo_job  = linkInit();
+    struct linklist *doing_job = linkInit();
+    struct linklist *done_job  = linkInit();
+    struct linkobj *todo;
     while ( fgets(line, LINE_NUM, (FILE*)fp) ) {
         fseek( fp, len, SEEK_SET );
         strncpy( line_flag, line, 1 );
@@ -108,30 +111,76 @@ void showTodoLog( )
         }
 
         strcpy( line_str, line_bak );
-        explodeLine( line_bak, &todo );    
 
-        //提醒期
-        //将执行，提示(3天之前)
-        //准备执行,提示(3天内 )
-        //已过时,提示(过时3天内)
-        if( current_time_stamp > todo.time_stamp && (current_time_stamp - todo.time_stamp) < THREE_DAY_TIME ) {
-            printf( "\n待执行 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
-                COLOR_LIGHT_GREEN, todo.message, COLOR_NC,
-                COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
-                COLOR_CYAN, todo.address, COLOR_NC,
-                COLOR_PURPLE, todo.date, todo.time, COLOR_NC );
-        } else if( current_time_stamp > todo.time_stamp ) {
-            printf( "\n已过时 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
-                COLOR_LIGHT_RED, todo.message, COLOR_NC,
-                COLOR_LIGHT_BLUE, todo.note, COLOR_NC,
-                COLOR_CYAN, todo.address, COLOR_NC,
-                COLOR_PURPLE, todo.date, todo.time, COLOR_NC );
-            fputs( DISABLE_FLAG, fp );
+        todo = (struct linkobj *)malloc( sizeof(struct linkobj) );
+        explodeLine( line_bak, todo );
+
+
+        //进行时( 未来一天内要做的事 )
+        if ( current_time_stamp < todo->time_stamp && ( todo->time_stamp - current_time_stamp ) < DAY_TIME ) {
+            if( doing_job->item==NULL ) {
+                linkCreate( doing_job, todo  );
+            } else {
+                linkAppend( doing_job, todo );
+            }
+        //将来时( 未来二至三天内要做的事 )
+        } else if ( current_time_stamp < todo->time_stamp && ( todo->time_stamp - current_time_stamp ) < THREE_DAY_TIME ) {
+            if( todo_job->item==NULL ) {
+                linkCreate( todo_job, todo  );
+            } else {
+                linkAppend( todo_job, todo );
+            }
+        //完成时( 前三天内要做的事 )
+        } else if ( current_time_stamp > todo->time_stamp && ( current_time_stamp -todo->time_stamp  ) < THREE_DAY_TIME ) {
+            if( done_job->item==NULL ) {
+                linkCreate( done_job, todo  );
+            } else {
+                linkAppend( done_job, todo );
+            }
+//        } else if ( current_time_stamp > todo->time_stamp ) {
+//            if( done_job->item==NULL ) {
+//                linkCreate( done_job, todo  );
+//            } else {
+//                linkAppend( done_job, todo );
+//            }
         }
+
         len += strlen( line );
         fseek( fp, len, SEEK_SET );
     }
     fclose(fp);
+
+    todo_job  = linkReset( todo_job );
+    doing_job = linkReset( doing_job );
+    done_job  = linkReset( done_job );
+
+    while( todo_job->item ) {
+        printf( "\n未开始 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+            COLOR_LIGHT_BLUE, todo_job->item->message, COLOR_NC,
+            COLOR_LIGHT_BLUE, todo_job->item->note, COLOR_NC,
+            COLOR_CYAN, todo_job->item->address, COLOR_NC,
+            COLOR_PURPLE, todo_job->item->date, todo_job->item->time, COLOR_NC );
+        todo_job = linkNext( todo_job );
+    }
+
+    while( doing_job->item ) {
+        printf( "\n进行中 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+            COLOR_LIGHT_GREEN, doing_job->item->message, COLOR_NC,
+            COLOR_LIGHT_BLUE, doing_job->item->note, COLOR_NC,
+            COLOR_CYAN, doing_job->item->address, COLOR_NC,
+            COLOR_PURPLE, doing_job->item->date, doing_job->item->time, COLOR_NC );
+        doing_job = linkNext( doing_job );
+    }
+
+    while( done_job->item ) {
+        printf( "\n已过时 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+            COLOR_LIGHT_RED, done_job->item->message, COLOR_NC,
+            COLOR_LIGHT_BLUE, done_job->item->note, COLOR_NC,
+            COLOR_CYAN, done_job->item->address, COLOR_NC,
+            COLOR_PURPLE, done_job->item->date, done_job->item->time, COLOR_NC );
+        done_job = linkNext( done_job );
+    }
+
 }
 
 

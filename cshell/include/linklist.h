@@ -47,10 +47,21 @@ int linkLength( Link_List *link_node )
     return last->key + 1;
 }
 
-
-Link_List *linkCreate( struct linkobj *obj )
+Link_List *linkInit()
 {
     Link_List *node = (Link_List*) malloc( sizeof(Link_List) );
+    node->item = NULL;
+    node->next = NULL;
+    node->prev = NULL;
+    node->key = 0;
+    return  node;
+}
+
+Link_List *linkCreate( Link_List *node, struct linkobj *obj )
+{
+    if( node ) {
+        Link_List *node = linkInit();
+    }
     node->item = obj;
     node->next = NULL;
     node->prev = NULL;

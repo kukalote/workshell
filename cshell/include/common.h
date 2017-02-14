@@ -54,7 +54,7 @@ unsigned long GetTick(int iY,int iM,int iD,int iH,int iMin,int iS)
     stm.tm_year=iY-1900;
     stm.tm_mon=iM-1;
     stm.tm_mday=iD;
-    stm.tm_hour=iH-8;
+    stm.tm_hour=iH;
     stm.tm_min=iMin;
     stm.tm_sec=iS;
 
