@@ -57,6 +57,7 @@ Link_List *linkInit()
     return  node;
 }
 
+//Link_List *linkCreate( NULL, struct linkobj *obj )
 Link_List *linkCreate( Link_List *node, struct linkobj *obj )
 {
     if( node ) {

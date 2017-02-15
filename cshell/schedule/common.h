@@ -77,15 +77,17 @@ char *inputProgram( char *todo_line )
 
 
 
+void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_job );
+void disableScheduleItem( char *disable_list );
 void showTodoLog( )
 {
     FILE *fp;
     char *todo_path;
     char line[LINE_NUM];
     char line_str[LINE_NUM] ;
+    char line_bak[LINE_NUM];
     unsigned long current_time_stamp;
     char line_flag[]=" ";
-    char line_bak[LINE_NUM];
     int len = 0;
 
     todo_path = getTodoPath();
@@ -98,6 +100,7 @@ void showTodoLog( )
     struct linklist *doing_job = linkInit();
     struct linklist *done_job  = linkInit();
     struct linkobj *todo;
+
     while ( fgets(line, LINE_NUM, (FILE*)fp) ) {
         fseek( fp, len, SEEK_SET );
         strncpy( line_flag, line, 1 );
@@ -115,9 +118,10 @@ void showTodoLog( )
         todo = (struct linkobj *)malloc( sizeof(struct linkobj) );
         explodeLine( line_bak, todo );
 
-
+//printf("%d, %d\n", current_time_stamp, todo->time_stamp);
         //进行时( 未来一天内要做的事 )
         if ( current_time_stamp < todo->time_stamp && ( todo->time_stamp - current_time_stamp ) < DAY_TIME ) {
+//            printf("doing\n");
             if( doing_job->item==NULL ) {
                 linkCreate( doing_job, todo  );
             } else {
@@ -125,6 +129,7 @@ void showTodoLog( )
             }
         //将来时( 未来二至三天内要做的事 )
         } else if ( current_time_stamp < todo->time_stamp && ( todo->time_stamp - current_time_stamp ) < THREE_DAY_TIME ) {
+//            printf("todo\n");
             if( todo_job->item==NULL ) {
                 linkCreate( todo_job, todo  );
             } else {
@@ -132,6 +137,7 @@ void showTodoLog( )
             }
         //完成时( 前三天内要做的事 )
         } else if ( current_time_stamp > todo->time_stamp && ( current_time_stamp -todo->time_stamp  ) < THREE_DAY_TIME ) {
+//            printf("done\n");
             if( done_job->item==NULL ) {
                 linkCreate( done_job, todo  );
             } else {
@@ -149,39 +155,74 @@ void showTodoLog( )
         fseek( fp, len, SEEK_SET );
     }
     fclose(fp);
+    outputLogList( todo_job, doing_job, done_job );
+
+}
+
+void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_job )
+{
+    char *disable_list;
 
     todo_job  = linkReset( todo_job );
     doing_job = linkReset( doing_job );
     done_job  = linkReset( done_job );
-
+    
+    printf( "\n%s未开始%s >>\n" , COLOR_LIGHT_BLUE, COLOR_NC);
     while( todo_job && todo_job->item ) {
-        printf( "\n未开始 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+        printf( "提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
             COLOR_LIGHT_BLUE, todo_job->item->message, COLOR_NC,
             COLOR_LIGHT_BLUE, todo_job->item->note, COLOR_NC,
             COLOR_CYAN, todo_job->item->address, COLOR_NC,
             COLOR_PURPLE, todo_job->item->date, todo_job->item->time, COLOR_NC );
         todo_job = linkNext( todo_job );
     }
+    scanf( "%s", disable_list );
+//    disableScheduleItem( disable_list );
 
+    printf( "\n%s进行中%s >>\n" , COLOR_LIGHT_GREEN, COLOR_NC);
     while( doing_job && doing_job->item ) {
-        printf( "\n进行中 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+        printf( "提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
             COLOR_LIGHT_GREEN, doing_job->item->message, COLOR_NC,
             COLOR_LIGHT_BLUE, doing_job->item->note, COLOR_NC,
             COLOR_CYAN, doing_job->item->address, COLOR_NC,
             COLOR_PURPLE, doing_job->item->date, doing_job->item->time, COLOR_NC );
         doing_job = linkNext( doing_job );
     }
+//    system( "read var1" );
+    scanf( "%s", disable_list );
+//    disableScheduleItem( disable_list );
 
+    printf( "\n%s已过时%s >>\n" , COLOR_LIGHT_RED, COLOR_NC);
     while( done_job && done_job->item ) {
-        printf( "\n已过时 >>\n提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
+        printf( "提示事件 : %s%s%s,\n提示备注 : %s%s%s,\n执行地点 : %s%s%s,\n执行时间 : %s%s %s%s \n###################\n" ,
             COLOR_LIGHT_RED, done_job->item->message, COLOR_NC,
             COLOR_LIGHT_BLUE, done_job->item->note, COLOR_NC,
             COLOR_CYAN, done_job->item->address, COLOR_NC,
             COLOR_PURPLE, done_job->item->date, done_job->item->time, COLOR_NC );
         done_job = linkNext( done_job );
     }
-
+    printf( "请输入想标记完成的任务, (输入格式如:22,33)\n" );
+    scanf( "%s", disable_list );
+    disableScheduleItem( disable_list );
 }
+
+char * explode( char *input, char *split )
+{
+    int length = 0;
+    char *ceil = strtok(input, split);
+    ceil && length++;
+
+    while( ceil = strtok(NULL, ",") ) {
+        length++;
+    }
+    printf("%d", length);
+}
+void disableScheduleItem( char *disable_list )
+{
+    printf(">>>%s<<<", disable_list);
+    explode(disable_list, ",");
+}
+
 
 
 
