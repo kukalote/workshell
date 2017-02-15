@@ -161,7 +161,7 @@ void showTodoLog( )
 
 void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_job )
 {
-    char *disable_list;
+    char disable_list[30];
 
     todo_job  = linkReset( todo_job );
     doing_job = linkReset( doing_job );
@@ -176,8 +176,6 @@ void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_j
             COLOR_PURPLE, todo_job->item->date, todo_job->item->time, COLOR_NC );
         todo_job = linkNext( todo_job );
     }
-    scanf( "%s", disable_list );
-//    disableScheduleItem( disable_list );
 
     printf( "\n%s进行中%s >>\n" , COLOR_LIGHT_GREEN, COLOR_NC);
     while( doing_job && doing_job->item ) {
@@ -188,9 +186,6 @@ void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_j
             COLOR_PURPLE, doing_job->item->date, doing_job->item->time, COLOR_NC );
         doing_job = linkNext( doing_job );
     }
-//    system( "read var1" );
-    scanf( "%s", disable_list );
-//    disableScheduleItem( disable_list );
 
     printf( "\n%s已过时%s >>\n" , COLOR_LIGHT_RED, COLOR_NC);
     while( done_job && done_job->item ) {
@@ -202,25 +197,43 @@ void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_j
         done_job = linkNext( done_job );
     }
     printf( "请输入想标记完成的任务, (输入格式如:22,33)\n" );
-    scanf( "%s", disable_list );
+    scanf( "%s", &disable_list );
     disableScheduleItem( disable_list );
 }
 
-char * explode( char *input, char *split )
+int *explode( char *input, char *split )
 {
     int length = 0;
+    char input_bak[strlen(input)];
+
+    strcpy( input_bak, input );
     char *ceil = strtok(input, split);
     ceil && length++;
 
-    while( ceil = strtok(NULL, ",") ) {
+    while( ceil = strtok(NULL, split) ) {
         length++;
     }
-    printf("%d", length);
+
+
+    int *arr = int malloc( length*sizeof(int) );
+//    ceil = strtok(input_bak, split);
+//
+//    int key = 0;
+//    arr[key] = atoi(ceil);
+//
+//    while( ceil = strtok(NULL, split) ) {
+//        arr[++key] = atoi(ceil);
+//    }
+//
+    return arr;
 }
 void disableScheduleItem( char *disable_list )
 {
-    printf(">>>%s<<<", disable_list);
-    explode(disable_list, ",");
+//    printf(">>>%s<<<", disable_list);
+//    int *arr;
+//    arr = explode( disable_list, "," );
+//    printf("%d", arr[1]);
+    explode( disable_list, "," );
 }
 
 
