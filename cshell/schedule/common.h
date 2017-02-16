@@ -196,9 +196,11 @@ void outputLogList( Link_List *todo_job, Link_List *doing_job, Link_List *done_j
             COLOR_PURPLE, done_job->item->date, done_job->item->time, COLOR_NC );
         done_job = linkNext( done_job );
     }
-    printf( "请输入想标记完成的任务, (输入格式如:22,33)\n" );
+    printf( "请输入想标记完成的任务, (输入格式如:22,33), 取消请按n/N:\n" );
     scanf( "%s", &disable_list );
-    disableScheduleItem( disable_list );
+    if( *disable_list!='N' && *disable_list!='n' ){
+        disableScheduleItem( disable_list );
+    }
 }
 
 int *explode( char *input, char *split )
@@ -215,25 +217,25 @@ int *explode( char *input, char *split )
     }
 
 
-    int *arr = int malloc( length*sizeof(int) );
-//    ceil = strtok(input_bak, split);
-//
-//    int key = 0;
-//    arr[key] = atoi(ceil);
-//
-//    while( ceil = strtok(NULL, split) ) {
-//        arr[++key] = atoi(ceil);
-//    }
-//
+    int *arr = (int *)malloc( length*sizeof(int) );
+    ceil = strtok(input_bak, split);
+
+    int key = 0;
+    arr[key] = atoi(ceil);
+
+    while( ceil = strtok(NULL, split) ) {
+        arr[++key] = atoi(ceil);
+    }
+
     return arr;
 }
 void disableScheduleItem( char *disable_list )
 {
 //    printf(">>>%s<<<", disable_list);
-//    int *arr;
-//    arr = explode( disable_list, "," );
-//    printf("%d", arr[1]);
-    explode( disable_list, "," );
+    int *arr;
+    arr = explode( disable_list, "," );
+    printf("%d", arr[0]);
+//    explode( disable_list, "," );
 }
 
 
