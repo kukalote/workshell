@@ -35,7 +35,6 @@ sycleClearBackupDir ()
     fi
     return 0
 } 
-
 # 重置/切换当前工作目录
 worknow () 
 {
@@ -79,7 +78,6 @@ setworknow ()
 {
     worknow `pwd`
 }
-
 
 # svn 查看当前用户的参数
 svnLog () 
