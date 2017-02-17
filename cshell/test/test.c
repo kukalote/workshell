@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 //@todo 试生成字符指针为元素的数组
 char * explode( char *input, char *split )
 {
