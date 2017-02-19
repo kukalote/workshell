@@ -42,6 +42,7 @@ export selfwork=~/workshell
 # 命令别名创建
 alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
+alias gccact="gcc -o action $*"
 
 #引入外部文件
 source $selfwork/bash/func.sh
