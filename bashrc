@@ -18,7 +18,7 @@ export nginxconf='/etc/nginx/conf.d'
 export vimsession='/var/vimsession'
 export uxinwork='/var/www/uxin_sites'
 export testwork='/var/www/test'
-export selfwork=~/workshell
+export selfwork='/usr/local/workshell'
 
 
 

@@ -1,4 +1,4 @@
-let $SELFHOME="~/workshell/vim"
+let $SELFHOME="/usr/local/workshell/vim"
 " 引入当前目录下的vim插件配置
 source $SELFHOME/plug.vim
 
