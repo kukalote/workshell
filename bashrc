@@ -43,7 +43,7 @@ export selfwork='/usr/local/workshell'
 alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
 alias gccact="gcc -o action $*"
-alias dirls="printf '%s\r\n' \$(\dirs) | tac | awk '{print NR-1\"\t\"\$0}'"
+alias dirls="printf '%s\r\n' \$(\dirs) | awk '{print NR-1\"\t\"\$0}'"
 
 #引入外部文件
 source $selfwork/bash/func.sh
