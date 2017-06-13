@@ -29,3 +29,5 @@
 [submodule "vim/bundle/vim-powerline"]
 	path = vim/bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "5f16458a02107a72ed892b8172d14d3140ac3d19 submoudule_test (heads/master)"]
+	ignore = untracked
