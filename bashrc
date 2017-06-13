@@ -22,20 +22,20 @@ export selfwork='/usr/local/workshell'
 
 
 
-#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
+PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
 #PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)$ '
 
 
 # zshell powerline 主题配置
 #{
     # 主题wiki https://github.com/bhilburn/powerlevel9k
-    source /usr/lib/powerlevel9k/powerlevel9k.zsh-theme
+#    source /usr/lib/powerlevel9k/powerlevel9k.zsh-theme
 
     # 时间格式配置
     #POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
     #左标,右标信息
-    #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status  history time)
+#    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
+#    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status  history time)
 #}
 
 
