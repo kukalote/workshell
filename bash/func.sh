@@ -124,6 +124,11 @@ lsdir()
     ls -lF $* | grep "/$"
 }
 
+dircd()
+{
+    cd -$1
+}
+
 #todo
 sycleClearBackupDir
 #rmbak

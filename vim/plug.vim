@@ -5,7 +5,7 @@
     " set the runtime path to include Vundle and initialize
     set rtp+=$SELFHOME/bundle/Vundle.vim
     " alternatively, pass a path where Vundle should install plugins
-    call vundle#begin('~/workshell/vim/bundle')
+    call vundle#begin('/usr/local/workshell/vim/bundle')
 "    call vundle#begin()
 
     "1. 在Github vim-scripts 用户下的repos,只需要写出repos名称
