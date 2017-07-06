@@ -43,7 +43,7 @@ int main ( int argc, char *argv[] )
 //puts( path );
     
     // gcc -o action xx.c; ./action
-    sprintf( command, "gcc -o action %s;./action", path );
+    sprintf( command, "gcc -o /tmp/action %s;/tmp/action", path );
     system( command );
 //    puts( command );
 

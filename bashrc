@@ -2,9 +2,29 @@
 setenforce 0 2>/dev/null
 
 # 启动服务
-systemctl start nginx
-systemctl start php-fpm
-systemctl start mysql
+which nginx >/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start nginx
+fi
+
+which php>/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start php-fpm
+fi
+
+which mysql>/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start mysql
+fi
+
+which redis-server>/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start redis
+fi
 
 # 配置
 export EDITOR=vim
@@ -19,6 +39,8 @@ export vimsession='/var/vimsession'
 export uxinwork='/var/www/uxin_sites'
 export testwork='/var/www/test'
 export selfwork='/usr/local/workshell'
+
+export PATH="$PATH:$selfwork/cshell/command"
 
 
 
@@ -42,8 +64,8 @@ PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blu
 # 命令别名创建
 alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
-alias gccact="gcc -o action $*"
 alias dirls="printf '%s\r\n' \$(\dirs) | awk '{print NR-1\"\t\"\$0}'"
+#alias gccact="gcc -o action $*"
 
 #引入外部文件
 source $selfwork/bash/func.sh
