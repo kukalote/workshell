@@ -28,18 +28,19 @@ int main ( int argc, char *argv[] )
         if( strcmp( argv[i], "-f" ) == 0 ) {
             if( ++i >= argc ) break;
             file = argv[i];
-        } else if ( strcmp( argv[i], "-d" ) == 0 ) {
-            if( ++i >= argc ) break;
-            dir = argv[i];
+//        } else if ( strcmp( argv[i], "-d" ) == 0 ) {
+//            if( ++i >= argc ) break;
+//            dir = argv[i];
         }
     }
 
 //printf( ">>%d, %d\n", strlen(file) , strlen(dir) );
-    if( strlen(file) <= 0 ||  strlen(dir) <= 0 ) {
+//    if( strlen(file) <= 0 ||  strlen(dir) <= 0 ) {
+    if( strlen(file) <= 0 ) {
         puts( "参数异常" );
         return EXIT_FAILURE;
     }
-    sprintf( path, "%s/%s", dir, file );
+//    sprintf( path, "%s/%s", dir, file );
 //puts( path );
     
     // gcc -o action xx.c; ./action
