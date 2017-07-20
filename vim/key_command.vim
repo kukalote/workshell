@@ -26,6 +26,11 @@ nmap <silent> <leader>2 2gt
 nmap <silent> <leader>3 3gt
 nmap <silent> <leader>4 4gt
 
+" 隐藏/行号
+nmap <silent> <leader>n :set nu!<CR>:set relativenumber!<CR>
+" 取消重点显示
+nmap <C-n> :noh<CR>
+
 " 插入模式自动转换
 "imap ex example
 
@@ -50,7 +55,7 @@ map <leader>< :s/^\(.*\)$/<!-- \1 -->/<CR>:noh<CR>
 "map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:noh<CR>
 
 "
-" 添加php调试输出
+" 添加php调试输出, var_dump('a');exit;
 nmap <silent> <leader>var ovar_dump('a');exit;<Esc>:w<CR>4blvh%h
 
 " 重定义:E命令
