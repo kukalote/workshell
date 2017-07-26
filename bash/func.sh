@@ -1,5 +1,6 @@
 alias rm="rmbak $*";
 alias ld="lsdir $*"
+alias open="opengpk $*"
 alias svndiffile="svnLog $*";
 export crash_dir="/var/crash/"
 export cshell_dir=$selfwork'/cshell'
@@ -127,6 +128,11 @@ lsdir()
 dircd()
 {
     cd -$1
+}
+
+opengpk()
+{
+    $(xdg-open $* 2>/dev/null)
 }
 
 #todo
