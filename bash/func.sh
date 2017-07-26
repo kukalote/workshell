@@ -132,7 +132,7 @@ dircd()
 
 opengpk()
 {
-    $(xdg-open $* 2>/dev/null)
+    xdg-open $* 2>/dev/null
 }
 
 #todo
