@@ -138,7 +138,7 @@ opengpk()
 isCentOS()
 {
     result=$( head -1 /etc/os-release | grep 'CentOS' )
-    if [[ result != '' ]]
+    if [[ "$result" != "" ]]
     then
         return 0;
     else
