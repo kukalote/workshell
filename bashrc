@@ -1,30 +1,3 @@
-# 关掉selinux
-setenforce 0 2>/dev/null
-
-# 启动服务
-which nginx >/dev/null
-if [ $? -eq 0 ] 
-then
-    systemctl start nginx
-fi
-
-which php>/dev/null
-if [ $? -eq 0 ] 
-then
-    systemctl start php-fpm
-fi
-
-which mysql>/dev/null
-if [ $? -eq 0 ] 
-then
-    systemctl start mysql
-fi
-
-which redis-server>/dev/null
-if [ $? -eq 0 ] 
-then
-    systemctl start redis
-fi
 
 # 配置
 export EDITOR=vim
@@ -66,7 +39,39 @@ alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
 alias dirls="printf '%s\r\n' \$(\dirs) | awk '{print NR-1\"\t\"\$0}'"
 alias datefm="date '+%Y-%m-%d %T'"
-#alias gccact="gcc -o action $*"
 
+###########################
 #引入外部文件
 source $selfwork/bash/func.sh
+
+
+##########################
+# 关掉selinux
+setenforce 0 2>/dev/null
+
+
+
+# 启动服务
+which nginx >/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start nginx
+fi
+
+which php>/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start php-fpm
+fi
+
+which mysql>/dev/null
+if [ $? -eq 0 ] 
+then
+    isCentOS && systemctl start mysql
+fi
+
+which redis-server>/dev/null
+if [ $? -eq 0 ] 
+then
+    systemctl start redis
+fi

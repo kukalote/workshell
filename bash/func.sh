@@ -135,6 +135,16 @@ opengpk()
     xdg-open $* 2>/dev/null
 }
 
+isCentOS()
+{
+    result=$( head -1 /etc/os-release | grep 'CentOS' )
+    if [[ result != '' ]]
+    then
+        return 0;
+    else
+        return 1;
+    fi
+}
 #todo
 sycleClearBackupDir
 #rmbak
