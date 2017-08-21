@@ -38,7 +38,7 @@ PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blu
 alias cls='clear'
 alias synctime='sudo ntpdate pool.ntp.org'
 alias dirls="printf '%s\r\n' \$(\dirs) | awk '{print NR-1\"\t\"\$0}'"
-alias datefm="date '+%Y-%m-%d %T'"
+alias datefm="echo '======================';date '+%Y-%m-%d %T';echo '======================';cal -3 -m"
 
 ###########################
 #引入外部文件
