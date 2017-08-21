@@ -8,10 +8,10 @@
 " 设置前缀命令
 let mapleader = ","
 " 编辑配置文件
-map <silent> <leader>ee :e $SELFHOME/sets.vim<CR>:noh<cr>
+map <silent> <leader>em :e $SELFHOME<CR>:noh<cr>
 
 " 加载配置文件 
-"map <silent> <leader>em :source $SELFHOME/../vimrc<CR>:noh<cr>
+map <silent> <leader>lm :source $SELFHOME/../vimrc<CR>:noh<cr>
 "map <silent> <leader>em :so %<CR>:noh<cr> " 莫名奇妙会关掉vim
 
 " 窗口跳转
@@ -25,11 +25,13 @@ nmap <silent> <leader>1 1gt
 nmap <silent> <leader>2 2gt
 nmap <silent> <leader>3 3gt
 nmap <silent> <leader>4 4gt
+" tab 创建
+nmap <silent> <leader>nt :tabnew<CR>
 
 " 隐藏/行号
-nmap <silent> <leader>n :set nu!<CR>:set relativenumber!<CR>
+nmap <silent> <leader>hn :set nu!<CR>:set relativenumber!<CR>
 " 取消重点显示
-nmap <C-n> :noh<CR>
+nmap <silent> <leader>hh :noh<CR>
 
 " 插入模式自动转换
 "imap ex example
