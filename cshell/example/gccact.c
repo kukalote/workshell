@@ -1,51 +1,46 @@
 /**
  * 这是一个看自动编译并执行脚本的命令
  * 具体使用规则类似 :
- * > gccact -f xxx.c -d target_dir
+ * > gccact dd/dd/xxx.c -l -t
  * 默认为当前活动目录下的文件
  *
  */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+
+#ifndef  TOOL_H
+#include "../include/tool.h"
+#endif
+
+#ifndef  FILEFUNC_H
+#include "../include/filefunc.h"
+#endif
+
 
 int main ( int argc, char *argv[] )
 {
-    char pwd[120];
-    getcwd( pwd, sizeof(pwd) );
-
-    int i;
-    char *file="";
-    char *dir="";
+    char path[120];
+    char params[120];
     char command[128]="";
-    char path[128] = "";
+    //获取当前参数
+    strcpy( path, argv[1] );
+    //获取参数路径
+    getRealPath( path );
+    //验证文件权限
+    fileAccess( path, "fr" );
 
-    dir = pwd;
-    for( i=0; i<argc; i++ ) {
-        if( i==0 ) continue;
-        if( strcmp( argv[i], "-f" ) == 0 ) {
-            if( ++i >= argc ) break;
-            file = argv[i];
-        } else if ( strcmp( argv[i], "-d" ) == 0 ) {
-            if( ++i >= argc ) break;
-            dir = argv[i];
-        }
+    //将命令参数格式化
+    int i = 2;
+    while ( argv[i] != NULL) {
+        strcat( params, " " );
+        strcat( params, argv[i] );
+        i++;
     }
 
-//printf( ">>%d, %d\n", strlen(file) , strlen(dir) );
-    if( strlen(file) <= 0 ||  strlen(dir) <= 0 ) {
-        puts( "参数异常" );
-        return EXIT_FAILURE;
-    }
-    sprintf( path, "%s/%s", dir, file );
-//puts( path );
-    
-    // gcc -o action xx.c; ./action
-    sprintf( command, "gcc -o /tmp/action %s;/tmp/action", path );
+    //命令组装
+    sprintf( command, "gcc -o /tmp/action %s %s;/tmp/action", path, params );
     system( command );
-//    puts( command );
-
     return EXIT_SUCCESS;
 }
