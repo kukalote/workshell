@@ -49,6 +49,9 @@ source $selfwork/bash/func.sh
 # 关掉selinux
 setenforce 0 2>/dev/null
 
+# 命令行以 vim 模式操作
+set -o vi
+
 
 
 # 启动服务

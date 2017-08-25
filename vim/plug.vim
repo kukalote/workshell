@@ -5,7 +5,7 @@
     " set the runtime path to include Vundle and initialize
     set rtp+=$SELFHOME/bundle/Vundle.vim
     " alternatively, pass a path where Vundle should install plugins
-    call vundle#begin('/usr/local/workshell/vim/bundle')
+    call vundle#begin('$SELFHOME/bundle')
 "    call vundle#begin()
 
     "1. 在Github vim-scripts 用户下的repos,只需要写出repos名称
@@ -39,9 +39,9 @@
     Plugin 'Xuyuanp/nerdtree-git-plugin'
 
     Bundle 'Lokaltog/vim-powerline' 
-"    Bundle 'Valloric/YouCompleteMe'
+    Bundle 'Valloric/YouCompleteMe'
+    Plugin 'shawncplus/phpcomplete.vim'
 
-"    Plugin 'shawncplus/phpcomplete.vim'
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
     filetype plugin indent on    " required
@@ -63,10 +63,6 @@
 
 
 
-"phpcheck{
-    " phpcheck 插件
-    let g:PHP_SYNTAX_CHECK_BIN = '/usr/bin/php'
-"}
 
 "ctags{
     "设置ctags程序路径
@@ -153,22 +149,51 @@
     "set error or warning signs
     let g:syntastic_error_symbol = '✗'
     let g:syntastic_warning_symbol = '⚠'
-    ""whether to show balloons
+    " whether to show balloons
     let g:syntastic_enable_balloons = 1
 " }
 
-"YouCompleteMe {
-"    let g:ycm_autoclose_preview_window_after_completion=1
-"    map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"}
 " phpcomplete {
-    filetype plugin on
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType c set omnifunc=ccomplete#Complete
+    " https://github.com/shawncplus/phpcomplete.vim
 "}
+
+
+"phpcheck{
+    " http://www.vim.org/scripts/script.php?script_id=4984
+"    let g:PHP_SYNTAX_CHECK_BIN = '/usr/bin/php'
+    let g:PHP_SYNTAX_CHECK_BIN = $php_path
+"}
+
+
+
+"YouCompleteMe {
+    " https://github.com/Valloric/YouCompleteMe
+    let g:ycm_server_python_interpreter=$python_path
+    let g:ycm_global_ycm_extra_conf='$SELFHOME/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+
+    let g:ycm_server_python_interpreter = ''
+    " 开启基于tag的补全，可以在这之后添加需要的标签路径
+    let g:ycm_collect_identifiers_from_tags_files=1
+
+    "在注释输入中也能补全
+    let g:ycm_complete_in_comments = 1
+    "在字符串输入中也能补全
+    let g:ycm_complete_in_strings = 1
+    "注释和字符串中的文字也会被收入补全
+    let g:ycm_collect_identifiers_from_comments_and_strings = 0
+
+    let g:ycm_error_symbol = '>>'
+    let g:ycm_warning_symbol = '>*'
+
+    let g:ycm_collect_identifiers_from_tags_files=1	" 开启 YCM 基于标签引擎
+    let g:ycm_min_num_of_chars_for_completion=2	" 从第2个键入字符就开始罗列匹配项
+    let g:ycm_cache_omnifunc=1	                " 禁止缓存匹配项,每次都重新生成匹配项
+    let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
+
+    " 跳转到定义处
+    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> 
+    inoremap <leader><leader> <C-x><C-o>
+    nmap <F4> :YcmDiags<CR>
+"}
+
 

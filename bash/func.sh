@@ -1,5 +1,5 @@
 alias rm="rmbak $*";
-alias ld="lsdir $*"
+alias lsdir="lsdir $*"
 alias open="opengpk $*"
 alias svndiffile="svnLog $*";
 export crash_dir="/var/crash/"

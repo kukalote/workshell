@@ -5,13 +5,11 @@
 " 自动加载vimrc, 无需重启gvim
 "autocmd! bufwritepost _vimrc source %
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" 设置前缀命令
-let mapleader = ","
 " 编辑配置文件
 map <silent> <leader>em :e $SELFHOME<CR>:noh<cr>
 
 " 加载配置文件 
-map <silent> <leader>lm :source $SELFHOME/../vimrc<CR>:noh<cr>
+map <silent> <leader>lm :source $SELFHOME/../vimrc<CR>:noh<CR>
 "map <silent> <leader>em :so %<CR>:noh<cr> " 莫名奇妙会关掉vim
 
 " 窗口跳转

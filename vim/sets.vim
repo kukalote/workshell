@@ -1,13 +1,17 @@
 "重载当前配置文件
 " :source $MYVIMRC
 "
+if has("mouse")
+    set mouse-=a
+endif
+
 " 无BOM 头
 set nobomb
-
 
 " 文件编码
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+language messages zh_CN.utf-8
 
 " 显示行号
 set nu
@@ -153,6 +157,4 @@ hi CursorLine   term=underline cterm=underline ctermfg=NONE ctermbg=238 gui=unde
 set noerrorbells
 " 在被分割的窗口间显示空白，便于阅读
 "set fillchars=vert:\ ,stl:\ ,stlnc:\
-
-
-
+set t_RV=
