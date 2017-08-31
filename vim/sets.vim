@@ -132,10 +132,6 @@ set nowrap
 colorscheme torte
 "colorscheme xun
 
-"检测文件类型
-filetype on
-filetype plugin on 
-
 
 " 显示 <Tab> 和 <EOL>
 "set list
@@ -158,3 +154,19 @@ set noerrorbells
 " 在被分割的窗口间显示空白，便于阅读
 "set fillchars=vert:\ ,stl:\ ,stlnc:\
 set t_RV=
+
+
+
+
+" 根据文件类型处理 
+filetype on
+filetype plugin on 
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python3 set omnifunc=python3complete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType sql set omnifunc=sqlcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete

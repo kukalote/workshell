@@ -38,9 +38,9 @@
     Plugin 'scrooloose/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-    Bundle 'Lokaltog/vim-powerline' 
+"    Bundle 'Lokaltog/vim-powerline' 
     Bundle 'Valloric/YouCompleteMe'
-    Plugin 'shawncplus/phpcomplete.vim'
+"    Plugin 'shawncplus/phpcomplete.vim'
 
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
@@ -72,7 +72,7 @@
     noremap <F8> :TlistToggle<CR>
 
     "更新ctags标签文件快捷键设置
-    noremap <F6> :!ctags -R --language-force=php<CR>
+    noremap <F6> :!ctags -R <CR>
 
     "启动vim后自动打开taglist窗口
     let Tlist_Auto_Open = 0
@@ -111,27 +111,18 @@
 
 
 "powerline{
-    set fillchars+=stl:\ ,stlnc:\
-    set term=xterm-256color
-    set termencoding=utf-8
-    set encoding=utf-8
-    set nocompatible 
-    set t_Co=256 
-
-    let g:Powerline_symbols= 'unicode'
-"    let g:Powerline_symbols = 'fancy'
-    let g:minBufExplForceSyntaxEnable = 1 
-"    let g:Powerline_theme = 'default'
-"    python from powerline.vim import setup as powerline_setup 
-"    python powerline_setup() 
-"    python del powerline_setup 
-
-    set laststatus=2 
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h12 
-    "set guifont=Meslo\ LG\ S\ for\ Powerline
-    set noshowmode
-
-"    let g:Powerline_stl_path_style = 'full'
+"    set fillchars+=stl:\ ,stlnc:\
+"    set term=xterm-256color
+"    set termencoding=utf-8
+"    set encoding=utf-8
+"    set nocompatible 
+"    set t_Co=256 
+"
+"    let g:Powerline_symbols= 'unicode'
+"    let g:minBufExplForceSyntaxEnable = 1 
+"
+"    set laststatus=2 
+"    set guifont=Source\ Code\ Pro\ for\ Powerline:h12 
 "}
 
 " syntastic{
@@ -161,7 +152,7 @@
 "phpcheck{
     " http://www.vim.org/scripts/script.php?script_id=4984
 "    let g:PHP_SYNTAX_CHECK_BIN = '/usr/bin/php'
-    let g:PHP_SYNTAX_CHECK_BIN = $php_path
+"    let g:PHP_SYNTAX_CHECK_BIN = $php_path
 "}
 
 
@@ -169,7 +160,7 @@
 "YouCompleteMe {
     " https://github.com/Valloric/YouCompleteMe
     let g:ycm_server_python_interpreter=$python_path
-    let g:ycm_global_ycm_extra_conf='$SELFHOME/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+    let g:ycm_global_ycm_extra_conf='/usr/local/workshell/vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 
     let g:ycm_server_python_interpreter = ''
     " 开启基于tag的补全，可以在这之后添加需要的标签路径
@@ -189,11 +180,32 @@
     let g:ycm_min_num_of_chars_for_completion=2	" 从第2个键入字符就开始罗列匹配项
     let g:ycm_cache_omnifunc=1	                " 禁止缓存匹配项,每次都重新生成匹配项
     let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
+    let g:EclimCompletionMethod = 'omnifunc'
+
+    let g:ycm_semantic_triggers =  {
+      \   'c' : ['->', '.'],
+      \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+      \             're!\[.*\]\s'],
+      \   'ocaml' : ['.', '#'],
+      \   'cpp,objcpp' : ['->', '.', '::'],
+      \   'perl' : ['->'],
+      \   'php' : ['->', '::'],
+      \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+      \   'ruby' : ['.', '::'],
+      \   'lua' : ['.', ':'],
+      \   'erlang' : [':'],
+      \ }
+
 
     " 跳转到定义处
     nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> 
     inoremap <leader><leader> <C-x><C-o>
-    nmap <F4> :YcmDiags<CR>
+"    nmap <F4> :YcmDiags<CR>
+    nmap <F4> :YcmShowDetailedDiagnostic<CR>
+
+
 "}
+
+
 
 

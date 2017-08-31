@@ -60,8 +60,8 @@ nmap <silent> <leader>var ovar_dump('a');exit;<Esc>:w<CR>4blvh%h
 
 " 重定义:E命令
 cabbrev E Explore
-"command! E Explore
-"command E Explore
+cabbrev mkss mksession $vimsession/
+"iabbrev var var_dump();
 
 
 

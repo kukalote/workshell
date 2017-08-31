@@ -50,7 +50,7 @@ source $selfwork/bash/func.sh
 setenforce 0 2>/dev/null
 
 # 命令行以 vim 模式操作
-set -o vi
+#set -o vi
 
 
 

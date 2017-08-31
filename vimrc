@@ -21,3 +21,6 @@ source $SELFHOME/fold.vim
 
 " 测试文件
 source $SELFHOME/test.vim
+
+" 引入当前目录下的vim配置,防止上面加载有其他操作覆盖
+source $SELFHOME/sets.vim
