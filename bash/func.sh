@@ -6,6 +6,16 @@ export crash_dir="/var/crash/"
 export cshell_dir=$selfwork'/cshell'
 export current_work_pid='/tmp/current_work_pid'
 
+# 工作目录切换扩展
+# workdirls
+# workdir /tmp
+# workdir 1
+# workdir
+# rmworkdir 1
+
+
+
+
 # 删除文件时将文件转移至删除备份目录
 rmbak () 
 {
@@ -36,49 +46,6 @@ sycleClearBackupDir ()
     fi
     return 0
 } 
-# 重置/切换当前工作目录
-worknow () 
-{
-    if [ $# -gt 0 ]
-    then
-        # 将 $1 写入文件，并保存为当前工作目录
-        resetWorkDir $1
-        workcurrent=$1
-    else
-        workcurrent=`getCurrentWorkDir`
-    fi
-    # 当前bash操作,如果用 $()，则为子bash执行
-    cd $workcurrent
-}
-
-# 设置当前工作目录
-resetWorkDir () 
-{
-    workdir=`realpath $1`
-    echo $workdir > $current_work_pid
-    return 0
-}
-
-# 获取工作目录
-getCurrentWorkDir () 
-{
-    # 如果无文件
-    if [ ! -f $current_work_pid ]
-    then
-#        echo 'please insert current work dir' >&1
-        read workcurrent
-        # 写入指定文件
-        echo $workcurrent > $(echo $current_work_pid)
-    fi
-    workcurrent=`awk 'NR==1' $current_work_pid`
-    echo $workcurrent
-}
-
-# 将当前目录设定为工作目录
-setworknow () 
-{
-    worknow `pwd`
-}
 
 # svn 查看当前用户的参数
 svnLog () 
@@ -112,12 +79,6 @@ svnLog ()
     echo $output | sed -n '/Changed paths:/,/^$/p' | sort | uniq | grep .
 }
 
-# todo work
-todo () 
-{
-    todo_script=$cshell_dir'/todo.out'
-    $todo_script
-}
 
 
 lsdir() 
@@ -145,6 +106,88 @@ isCentOS()
         return 1;
     fi
 }
+
+############################
+######## 工作目录切换工具
+############################
+
+
+# 添加/切换当前工作目录
+workdir () 
+{
+    if [ $# -gt 0 ]
+    then
+        # 输入序号与目录区分
+        if [[ $1 == *[!0-9]* ]]
+        then
+            # 将 $1 写入文件，并保存为当前工作目录
+            addWorkDir $1
+            workcurrent=$1
+        else 
+            workcurrent=`getWorkDirByID $1`;
+        fi
+    else
+        workcurrent=`getCurrentWorkDir`
+    fi
+    # 当前bash操作,如果用 $()，则为子bash执行
+    cd $workcurrent
+}
+
+# 设置当前工作目录
+addWorkDir () 
+{
+    workdir=`realpath $1`
+    echo $workdir >> $current_work_pid
+    return 0
+}
+
+# 展示工作目录列表
+workdirls()
+{
+    cat -n $current_work_pid
+}
+
+# 删除序号内的工作目录 
+rmworkdir()
+{
+    rmline="$1d"
+    cont=`sed $rmline $current_work_pid`
+    echo $cont > $current_work_pid
+    workdirls
+}
+
+# 获取工作目录
+getCurrentWorkDir () 
+{
+    # 如果无文件
+    if [ ! -f $current_work_pid ]
+    then
+        read workcurrent
+        # 写入指定文件
+        echo $workcurrent > $(echo $current_work_pid)
+    fi
+    workcurrent=`awk 'NR==1' $current_work_pid`
+    echo $workcurrent
+}
+# 获得序号下的地址
+getWorkDirByID ()
+{
+    i=1;
+    for l in $( cat $current_work_pid )
+    do
+        let "i += 1"
+        if [ $i -gt $1 ]
+        then
+            echo $l
+            break;
+        fi
+    done
+    return 0
+}
+
+
+############################
+
 #todo
 sycleClearBackupDir
 #rmbak

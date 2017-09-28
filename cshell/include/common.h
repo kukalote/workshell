@@ -2,8 +2,15 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+
+#define COMMON_H 1
+#ifndef CONFIG_H 
 #include "config.h"
+#endif
+
+#ifndef TOOL_H 
 #include "tool.h"
+#endif
 
 
 

@@ -1,3 +1,4 @@
+#define CONFIG_H 1
 #define DAY_TIME 86400
 #define THREE_DAY_TIME 259200
 
@@ -8,4 +9,5 @@
 
 #define F_APPEND "a"
 #define F_READWRTE "r+"
+
 

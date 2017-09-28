@@ -33,7 +33,7 @@
     " different version somewhere else.
 "    Plugin 'ascenator/L9', {'name': 'newL9'}
 "    Plugin 'nerdtree'
-    Bundle 'scrooloose/syntastic'
+"    Bundle 'scrooloose/syntastic'
     Bundle 'taglist.vim'
     Plugin 'scrooloose/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -91,7 +91,7 @@
     let Tlist_WinWidth = 40
 
     " 如果想在选择了tag后自动关闭taglist窗口
-    let Tlist_Close_On_Select = 1
+    let Tlist_Close_On_Select = 0
 
     " 打开taglist光标保留在taglist窗口
     let Tlist_GainFocus_On_ToggleOpen = 1
@@ -126,22 +126,22 @@
 "}
 
 " syntastic{
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_cpp_include_dirs = ['/usr/include/']
-    let g:syntastic_cpp_remove_include_errors = 1
-    let g:syntastic_cpp_check_header = 1
-    let g:syntastic_cpp_compiler = 'clang++'
-    let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
-    "set c options
-    let g:syntastic_c_include_dirs = ["includes", "headers"]
-    let g:syntastic_c_oclint_post_args = ""
-    let g:syntastic_c_sparse_post_args="-gcc-base-dir " .
-        \ system("gcc -v 2>&1 | sed -n '/^Reading specs/ { s#.* /#/#; s#/[^/]*$##; p; }'")
-    "set error or warning signs
-    let g:syntastic_error_symbol = '✗'
-    let g:syntastic_warning_symbol = '⚠'
-    " whether to show balloons
-    let g:syntastic_enable_balloons = 1
+"    let g:syntastic_check_on_open = 1
+"    let g:syntastic_cpp_include_dirs = ['/usr/include/']
+"    let g:syntastic_cpp_remove_include_errors = 1
+"    let g:syntastic_cpp_check_header = 1
+"    let g:syntastic_cpp_compiler = 'clang++'
+"    let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
+"    "set c options
+"    let g:syntastic_c_include_dirs = ["includes", "headers"]
+"    let g:syntastic_c_oclint_post_args = ""
+"    let g:syntastic_c_sparse_post_args="-gcc-base-dir " .
+"        \ system("gcc -v 2>&1 | sed -n '/^Reading specs/ { s#.* /#/#; s#/[^/]*$##; p; }'")
+"    "set error or warning signs
+"    let g:syntastic_error_symbol = '✗'
+"    let g:syntastic_warning_symbol = '⚠'
+"    " whether to show balloons
+"    let g:syntastic_enable_balloons = 1
 " }
 
 " phpcomplete {
@@ -173,6 +173,9 @@
     "注释和字符串中的文字也会被收入补全
     let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
+    let g:ycm_log_level = 'info'
+    let g:ycm_show_diagnostics_ui = 1
+    highlight YcmErrorLine guibg=#3f0000
     let g:ycm_error_symbol = '>>'
     let g:ycm_warning_symbol = '>*'
 
@@ -182,19 +185,19 @@
     let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
     let g:EclimCompletionMethod = 'omnifunc'
 
-    let g:ycm_semantic_triggers =  {
-      \   'c' : ['->', '.'],
-      \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-      \             're!\[.*\]\s'],
-      \   'ocaml' : ['.', '#'],
-      \   'cpp,objcpp' : ['->', '.', '::'],
-      \   'perl' : ['->'],
-      \   'php' : ['->', '::'],
-      \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-      \   'ruby' : ['.', '::'],
-      \   'lua' : ['.', ':'],
-      \   'erlang' : [':'],
-      \ }
+"    let g:ycm_semantic_triggers =  {
+"      \   'c' : ['->', '.'],
+"      \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"      \             're!\[.*\]\s'],
+"      \   'ocaml' : ['.', '#'],
+"      \   'cpp,objcpp' : ['->', '.', '::'],
+"      \   'perl' : ['->'],
+"      \   'php' : ['->', '::'],
+"      \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"      \   'ruby' : ['.', '::'],
+"      \   'lua' : ['.', ':'],
+"      \   'erlang' : [':'],
+"      \ }
 
 
     " 跳转到定义处
@@ -208,4 +211,16 @@
 
 
 
+
+" 根据文件类型处理 
+filetype on
+filetype plugin on 
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python3 set omnifunc=python3complete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
 

@@ -157,16 +157,3 @@ set t_RV=
 
 
 
-
-" 根据文件类型处理 
-filetype on
-filetype plugin on 
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType python3 set omnifunc=python3complete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType sql set omnifunc=sqlcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
