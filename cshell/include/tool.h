@@ -16,6 +16,7 @@ int strpos( char *main, char *needle );
 int getDateMode( char *date );
 void analyzeDateFormat( char *date, char *dates[] );
 void explode( char *src, char *separator, char *dest[] );
+char *strntok( char *src, const int num );
 void explodeByCount( char *src, int separator_arr[], char *dest[] );
 
 /**
@@ -106,7 +107,8 @@ void analyzeDateFormat( char *date, char *dates[] )
     } else if( mode == 3 ) {
         int separator_arr[3] = {4, 2, 2, NULL};
         explodeByCount( date, separator_arr, dates );
-    ds( dates[1], 1 );
+//        dates = explodeByCount( date, separator_arr );
+    ds( dates[0], 1 );
     ds( ">>>>", 0 );
     }
 }
@@ -160,37 +162,36 @@ void explode( char *src, char *separator, char *dest[] )
  */
 void explodeByCount( char *src, int separator_arr[], char *dest[] )
 {
-//    int str_len = strlen( src );    
-    int i;
-    char ceil[5] = "";
-    for( i=0; separator_arr[i]; i++ ) {
-        strncpy( ceil, "", 5 );
-        strncpy( ceil, src, separator_arr[i] );
-        dest[i] = ceil;
-        src += separator_arr[i];
+    char *parsed;
+    int index = 0;
+    parsed = strntok(src, separator_arr[index]);
+ds(src, 1);
+ds(parsed, 1);
+    while (parsed != NULL) {
+        dest[index] = parsed;
+        index++;
+
+        parsed = strntok(NULL, separator_arr[index]);
     }
-    dest[i] = NULL;
-    ds( dest[1], 1 );
+
+    dest[index] = NULL;
 }
 
-/**
- * 字符串数组拼接
- */
-//char **connectStringArray(char **input) 
-//{
-//    char **command = malloc(8 * sizeof(char *));
-//    char *separator = " ";
-//    char *parsed;
-//    int index = 0;
-//
-//    parsed = strtok(input, separator);
-//    while (parsed != NULL) {
-//        command[index] = parsed;
-//        index++;
-//
-//        parsed = strtok(NULL, separator);
-//    }
-//
-//    command[index] = NULL;
-//    return command;
-//}
+char *strntok( char *src, const int num )
+{
+    char *sbegin, *send;
+    static char *ssave = "";
+
+    sbegin = src ? src : ssave;
+    sbegin += num;
+    if ( *sbegin == '\0' ) {
+        ssave = "";
+        return (NULL);
+    }
+    send = sbegin + num;
+//    puts(send);
+    if( *send != '\0' )
+        *send++ = '\0';
+    ssave = send;
+    return (sbegin);
+}

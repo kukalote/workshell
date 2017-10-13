@@ -1,8 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
+#ifndef TOOL_H
+#include "include/tool.h"
+#endif
+
+
 #define MAX_COLS 20
 #define MAX_INPUT 1000
+
 
 int read_column_numbers( int columns[], int max );
 void rearrange( char *output, char const *input,
@@ -11,6 +19,11 @@ void rearrange( char *output, char const *input,
 
 int main( void )
 {
+//WARN_IF("bb");
+//TYPEOF('3');
+//printf( "%d", var_type );
+//debug_print(3, "aaa");
+return 0;
     int n_columns;
     int columns[MAX_COLS];
     char input[MAX_INPUT];

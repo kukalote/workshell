@@ -22,29 +22,60 @@ char *getStr()
 //@todo 试生成字符指针为元素的数组
 char **explode( char *input, char *split )
 {
-    char *ceil = strtok(input, split);
-    char *array[3];
-    char **result;
-    int key = 0;
-    array[key] = (char *)malloc( (strlen(ceil) + 1)*sizeof(char) );
-    array[key++] = ceil;
-    while( ceil = strtok(NULL, split) ) {
-        array[key] = (char *)malloc( (strlen(ceil) + 1)*sizeof(char) );
-        array[key++] = ceil;
+//    char *ceil = strtok(input, split);
+//    char *array[3];
+//    char **result;
+//    int key = 0;
+//    array[key] = (char *)malloc( (strlen(ceil) + 1)*sizeof(char) );
+//    array[key++] = ceil;
+//    while( ceil = strtok(NULL, split) ) {
+//        array[key] = (char *)malloc( (strlen(ceil) + 1)*sizeof(char) );
+//        array[key++] = ceil;
+//    }
+////    printf(">%s\n", array[1]);
+//    result = array;
+////    printf(">%s\n", result[1]);
+//    return result;
+}
+
+char * sstrtok( char *s1, const char *s2 )
+{
+    char *sbegin, *send;
+    static char *ssave = "";
+
+    sbegin = s1 ? s1 : ssave;
+    sbegin += strspn( sbegin, s2 );
+    if ( *sbegin == '\0' ) {
+        ssave = "";
+        return (NULL);
     }
-//    printf(">%s\n", array[1]);
-    result = array;
-//    printf(">%s\n", result[1]);
-    return result;
+    send = sbegin + strcspn( sbegin, s2 );
+//    puts(send);
+    if( *send != '\0' )
+        *send++ = '\0';
+    ssave = send;
+    return (sbegin);
+
 }
 
 int main()
 {
-    char input[30]="hello,world,c language";
-    char **array;
-    array = explode( input, "," );
-    printf("%s\n", array[0]);
-    printf(">>%s\n", array[1]);
+//    char time[30] = "2017-03-01";
+//    char s[2] = "-";
+//    char *token;
+//    token = sstrtok( time, s );
+//    puts(token);
+//    token = sstrtok( NULL, s );
+//    puts(token);
+
+
+
+
+//    char input[30]="hello,world,c language";
+//    char **array;
+//    array = explode( input, "," );
+//    printf("%s\n", array[0]);
+//    printf(">>%s\n", array[1]);
 //    printf("%s\n", array[2]);
 
 //    char *str;
