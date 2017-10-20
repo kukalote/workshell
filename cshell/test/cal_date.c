@@ -20,7 +20,11 @@ int calcResetDays( int year, int month, int day );
 int calculateDays( int ys, int ms, int ds, int yp, int mp, int dp );
 int calculateYearsDays( int ys, int yp );
 int getYearDays( int year );
-int getWeekDays( int year, int month, int day );
+char *weekToEn( int week, char *week_en );
+char *monthToEn( int month, char *month_en );
+char *weekHead( int monday_first, char *interval, char *week_head );
+int getWeekDay( int year, int month, int day );
+char *mkCals( int year, int month, int day, int monday_first );
 /**
  * @note 是否为闰年
  */
@@ -136,9 +140,39 @@ int getYearDays( int year )
 }
 
 /**
+ *  @note  获取周英文
+ *  week=0, 返回周一
+ */
+char *weekToEn( int week, char *week_en ) 
+{
+    const char* week_list[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
+    if( week >= 0 && week < 7 ) {
+        strcpy( week_en, week_list[week] );
+        return week_en;
+    } 
+    return '\0';
+}
+/**
+ *  @note  获取月份英文
+ *  month=0, 返回一月
+ */
+char *monthToEn( int month, char *month_en ) 
+{
+    const char* month_list[] = {
+        "January","February","March","April","May","June"
+        ,"July","August","September","October","November","December" 
+    };
+    if( month >= 0 && month < 12 ) {
+        strcpy( month_en, month_list[month] );
+        return month_en;
+    } 
+    return '\0';
+}
+
+/**
  * @note 计量指定日期为周几
  */
-int getWeekDays( int year, int month, int day )
+int getWeekDay( int year, int month, int day )
 {
     int days;
     int weekday = 0;
@@ -152,6 +186,41 @@ int getWeekDays( int year, int month, int day )
 //printf( "相距天数 : %d\n", days );
     return weekday;
 }
+
+
+/**
+ * @note 返回日历周头
+ * weekHead( 1, " ", week_head );
+ */
+char *weekHead( int monday_first, char *interval, char *week_head )
+{
+    const char *calc_head[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
+    int i;
+
+    if( monday_first != 1 ) { 
+        sprintf( week_head, "%s%s%s", week_head, interval, calc_head[6] );
+    }
+    for( i=0; i<6; i++ ) {
+        sprintf( week_head, "%s%s%s", week_head, interval, calc_head[i] );
+    }
+    if( monday_first == 1 ) { 
+        sprintf( week_head, "%s%s%s", week_head, interval, calc_head[6] );
+    }
+    return week_head;
+}
+
+
+/**
+ * @note 生成显示列表
+ * @type y:显示年，q:显示季度, t:最近月份(前一月，当前，后一月), m:当前月份
+ */
+char *mkCals( int year, int month, int day, int monday_first, char type )
+{
+    char cals_out[2048];
+
+    
+}
+
 
 /**
  * @note 生成显示内容
@@ -170,7 +239,7 @@ void printCalc( int year, int month, int day, int is_monday_ahead )
             strcat( month_out, calc_head_2[i] );
     }
     strcat( month_out, "\n" );
-    int week_day = getWeekDays( year, month, day );
+    int week_day = getWeekDay( year, month, day );
     int month_start_day = is_monday_ahead ? week_day - 1 : week_day;
     int month_days = getMonthDays( year, month );
     int month_day_point = 0;
@@ -205,31 +274,23 @@ void printCalc( int year, int month, int day, int is_monday_ahead )
 int main ( int argc, char *argv[] )
 {
     //分析输入
-//    printf( "%d, %s\n", argc, argv[1] );
+//    char month_en[10];
+//    printf( "%d, %s\n", argc, monthToEn( atoi(argv[1]), month_en ) );
+//    exit( 0 );
 
     char date[20];
     char *dates[4];
-//    strcpy( date, argv[1] );
+    strcpy( date, argv[1] );
 
 //    strcpy( date, "2017-09-11" );
 //    strcpy( date, "2017/09/11" );
-    strcpy( date, "20170911" );
+//    strcpy( date, "20170911" );
 //    getDateMode(date);
     analyzeDateFormat( date, dates );
-    ds( dates[0], 0 );
-    ds( dates[1], 0 );
-    ds( dates[2], 0 );
-    /*
 
-    explode( date, "-", dates );
-    int i;
-    for( i=0; dates[i]!=NULL; i++ ) {
-        ds( dates[i], 0 );
-        ds( "-", 0 );
-    }
-    */
 
     // 返回周几
+    printCalc( atoi(dates[0]), atoi(dates[1]), atoi(dates[2]), 1 );
 //    printCalc( 2018, 3, 0, 1 );
     return 0;
 }

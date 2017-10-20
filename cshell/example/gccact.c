@@ -23,6 +23,7 @@ int main ( int argc, char *argv[] )
 {
     char path[120];
     char params[120];
+    char options[120];
     char command[128]="";
     //获取当前参数
     strcpy( path, argv[1] );
@@ -34,13 +35,20 @@ int main ( int argc, char *argv[] )
     //将命令参数格式化
     int i = 2;
     while ( argv[i] != NULL) {
-        strcat( params, " " );
-        strcat( params, argv[i] );
+        if( argv[i] == "-option" ) {
+            i++;
+            strcat( options, " " );
+            strcat( options, argv[i] );
+        } else {
+            strcat( params, " " );
+            strcat( params, argv[i] );
+        }
         i++;
     }
 
     //命令组装
-    sprintf( command, "gcc -o /tmp/action %s %s;/tmp/action", path, params );
+    sprintf( command, "gcc -o /tmp/action %s %s;/tmp/action %s", path, options, params );
+    printf( ">>>%s\n\n", command );
     system( command );
     return EXIT_SUCCESS;
 }

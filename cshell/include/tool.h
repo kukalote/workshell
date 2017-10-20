@@ -16,8 +16,9 @@ int strpos( char *main, char *needle );
 int getDateMode( char *date );
 void analyzeDateFormat( char *date, char *dates[] );
 void explode( char *src, char *separator, char *dest[] );
-char *strntok( char *src, const int num );
-void explodeByCount( char *src, int separator_arr[], char *dest[] );
+//char *strntok( char *src, const int num );
+char *strntok( char *dest, char *src, const int num );
+void explodeByCount( char *src, int separator_arr[], char *dest[], char *parsed );
 
 /**
  * @note 输出字符串
@@ -105,11 +106,9 @@ void analyzeDateFormat( char *date, char *dates[] )
         char *separator = "/";
         explode( date, separator, dates );
     } else if( mode == 3 ) {
-        int separator_arr[3] = {4, 2, 2, NULL};
-        explodeByCount( date, separator_arr, dates );
-//        dates = explodeByCount( date, separator_arr );
-    ds( dates[0], 1 );
-    ds( ">>>>", 0 );
+        int separator_arr[4] = {4, 2, 2, 0};
+        char parsed[255];
+        explodeByCount( date, separator_arr, dates, parsed );
     }
 }
 
@@ -160,38 +159,41 @@ void explode( char *src, char *separator, char *dest[] )
 /**
  * @note 根据指定字符长度分割为数组
  */
-void explodeByCount( char *src, int separator_arr[], char *dest[] )
+void explodeByCount( char *src, int separator_arr[], char *dest[], char *parsed )
 {
-    char *parsed;
     int index = 0;
-    parsed = strntok(src, separator_arr[index]);
-ds(src, 1);
-ds(parsed, 1);
-    while (parsed != NULL) {
-        dest[index] = parsed;
+    dest[index] = strntok(parsed, src, separator_arr[index]);
+//puts(dest[index]);
+    while ( separator_arr[index] != 0 ) {
         index++;
-
-        parsed = strntok(NULL, separator_arr[index]);
+        dest[index] = strntok( parsed, NULL, separator_arr[index] );
     }
-
     dest[index] = NULL;
 }
 
-char *strntok( char *src, const int num )
+char *strntok( char *dest, char *src, const int step )
 {
-    char *sbegin, *send;
     static char *ssave = "";
+    static int p_step = 0;
+    char *sbegin, *send;
 
+    //源字符串定位
+//printf( "--%p->%p\n", dest, ssave );
     sbegin = src ? src : ssave;
-    sbegin += num;
-    if ( *sbegin == '\0' ) {
+    if( *sbegin == '\0' || step == 0 ) {
         ssave = "";
-        return (NULL);
+        return ssave;
     }
-    send = sbegin + num;
-//    puts(send);
-    if( *send != '\0' )
-        *send++ = '\0';
+
+    //确定源字符串，目标字符串位置
+    dest += p_step + 1;
+    int i;
+    for( i=0; i<step; i++ ) {
+        dest[i] = sbegin[i];
+    }
+    dest[i] = '\0';
+    p_step += i + 1;
+    send = sbegin + i;
     ssave = send;
-    return (sbegin);
+    return dest;
 }
