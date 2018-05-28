@@ -33,13 +33,18 @@
     " different version somewhere else.
 "    Plugin 'ascenator/L9', {'name': 'newL9'}
 "    Plugin 'nerdtree'
-"    Bundle 'scrooloose/syntastic'
+    Bundle 'scrooloose/syntastic'
     Bundle 'taglist.vim'
     Plugin 'scrooloose/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 "    Bundle 'Lokaltog/vim-powerline' 
     Bundle 'Valloric/YouCompleteMe'
+
+    Plugin 'SirVer/ultisnips'
+"    Bundle "tomtom/tlib_vim"
+"    Bundle "garbas/vim-snipmate"
+    Bundle "honza/vim-snippets"
 "    Plugin 'shawncplus/phpcomplete.vim'
 
     " All of your Plugins must be added before the following line
@@ -72,7 +77,7 @@
     noremap <F8> :TlistToggle<CR>
 
     "更新ctags标签文件快捷键设置
-    noremap <F6> :!ctags -R <CR>
+    noremap <F6> :!ctags --languages=php -R <CR>
 
     "启动vim后自动打开taglist窗口
     let Tlist_Auto_Open = 0
@@ -107,6 +112,7 @@
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     let g:NERDTreeDirArrowExpandable = '▸'
     let g:NERDTreeDirArrowCollapsible = '▾'
+"    let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 "}
 
 
@@ -156,6 +162,13 @@
 "}
 
 
+" SirVer/ultisnips {
+    " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }
+
 
 "YouCompleteMe {
     " https://github.com/Valloric/YouCompleteMe
@@ -185,6 +198,10 @@
     let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
     let g:EclimCompletionMethod = 'omnifunc'
 
+
+    let g:ycm_autoclose_preview_window_after_completion=1
+    map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 "    let g:ycm_semantic_triggers =  {
 "      \   'c' : ['->', '.'],
 "      \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
@@ -211,6 +228,18 @@
 
 
 
+" python with virtualenv support
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUA_ENV' in os.environ:
+   project_base_dir = os.environ['VIRTUAL_ENV']
+   sys.path.insert(0, project_base_dir)
+   activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
+   execfile(activate_this, dict(__file__=activate_this))
+EOF
+
 
 " 根据文件类型处理 
 filetype on
@@ -223,4 +252,3 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-
