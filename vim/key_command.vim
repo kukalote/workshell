@@ -30,6 +30,9 @@ nmap <silent> <leader>nt :tabnew<CR>
 nmap <silent> <leader>hn :set nu!<CR>:set relativenumber!<CR>
 " 取消重点显示
 nmap <silent> <leader>hh :noh<CR>
+" 当前编辑窗口最大化
+nmap <silent> <leader>ww :res 333<CR>:vertical res 333<CR>
+
 
 " 插入模式自动转换
 "imap ex example
@@ -61,6 +64,7 @@ nmap <silent> <leader>var ovar_dump('a');exit;<Esc>:w<CR>4blvh%h
 " 重定义:E命令
 cabbrev E Explore
 cabbrev mkss mksession! $vimsession/
+iab funcdes  /**<CR>*<CR>* @author xunyalong<CR>*/<Esc><Left><C-v>%=<Down>A 
 "iabbrev var var_dump();
 
 
