@@ -33,7 +33,6 @@ nmap <silent> <leader>hh :noh<CR>
 " 当前编辑窗口最大化
 nmap <silent> <leader>ww :res 333<CR>:vertical res 333<CR>
 
-
 " 插入模式自动转换
 "imap ex example
 
