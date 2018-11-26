@@ -42,8 +42,6 @@
     Bundle 'Valloric/YouCompleteMe'
 
     Plugin 'SirVer/ultisnips'
-"    Bundle "tomtom/tlib_vim"
-"    Bundle "garbas/vim-snipmate"
     Bundle "honza/vim-snippets"
 "    Plugin 'shawncplus/phpcomplete.vim'
 
@@ -164,9 +162,10 @@
 
 " SirVer/ultisnips {
     " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<c-b>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsExpandTrigger="<C-l>"
+    let g:UltiSnipsJumpForwardTrigger="<C-l>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 " }
 
 

@@ -10,7 +10,6 @@ map <silent> <leader>em :e $SELFHOME<CR>:noh<cr>
 
 " 加载配置文件 
 map <silent> <leader>lm :source $SELFHOME/../vimrc<CR>:noh<CR>
-"map <silent> <leader>em :so %<CR>:noh<cr> " 莫名奇妙会关掉vim
 
 " 窗口跳转
 nmap <C-k> <C-W>k
@@ -23,6 +22,7 @@ nmap <silent> <leader>1 1gt
 nmap <silent> <leader>2 2gt
 nmap <silent> <leader>3 3gt
 nmap <silent> <leader>4 4gt
+nmap <silent> <leader>5 5gt
 " tab 创建
 nmap <silent> <leader>nt :tabnew<CR>
 
@@ -32,6 +32,9 @@ nmap <silent> <leader>hn :set nu!<CR>:set relativenumber!<CR>
 nmap <silent> <leader>hh :noh<CR>
 " 当前编辑窗口最大化
 nmap <silent> <leader>ww :res 333<CR>:vertical res 333<CR>
+" 当前编辑窗口最小化
+nmap <silent> <leader>ws :res 1<CR>
+nmap <silent> <leader>wv :vertical res 1<CR>
 
 " 插入模式自动转换
 "imap ex example
@@ -48,6 +51,8 @@ map <leader>! :s/^/!/<CR>:noh<CR>
 map <leader>; :s/^/;/<CR>:noh<CR>
 map <leader>- :s/^/-- /<CR>:noh<CR>
 map <leader>' :s/^["#;\/!-]*//<CR>:noh<CR>
+map <leader>t A // MY todo<Esc>:noh<CR>
+map <leader>r :s/\s\/\/\sMY\stodo//g<CR>:noh<CR>
 "map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 
 " wrapping comments
@@ -59,10 +64,11 @@ map <leader>< :s/^\(.*\)$/<!-- \1 -->/<CR>:noh<CR>
 "
 " 添加php调试输出, var_dump('a');exit;
 nmap <silent> <leader>var ovar_dump('a');exit;<Esc>:w<CR>4blvh%h
+vmap <silent> <leader>vv  yOvar_dump('a');exit;<Esc>4blvh%hp:w<CR>
 
 " 重定义:E命令
 cabbrev E Explore
-cabbrev mkss mksession! $vimsession/
+cabbrev mkss mksession! $vimss/
 iab funcdes  /**<CR>*<CR>* @author xunyalong<CR>*/<Esc><Left><C-v>%=<Down>A 
 "iabbrev var var_dump();
 

@@ -8,10 +8,11 @@ export LANG=en_US.UTF-8
 
 export nginxlog='/var/log/nginx'
 export nginxconf='/etc/nginx/conf.d'
-export vimsession='/var/vimsession'
+export vimss='/var/vimsession'
 export uxinwork='/var/www/uxin_sites'
 export testwork='/var/www/test'
 export selfwork='/usr/local/workshell'
+export snip='/usr/local/workshell/vim/bundle/vim-snippets/UltiSnips/php.snippets'
 
 export PATH="$PATH:$selfwork/cshell/command"
 
@@ -67,10 +68,10 @@ then
     systemctl start php-fpm
 fi
 
-which mysql>/dev/null
+which mysqld>/dev/null
 if [ $? -eq 0 ] 
 then
-    isCentOS && systemctl start mysql
+    isCentOS && systemctl start mysqld
 fi
 
 which redis-server>/dev/null

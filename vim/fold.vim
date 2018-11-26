@@ -3,7 +3,7 @@
 """""""""""""""""""""""""""""""""""""""""fold 折叠""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set foldenable           " enable folden
+set foldenable!           " enable folden
 set foldmethod=indent    " manual : Folds are created manually.
                          " indent : Lines with equal indent form a fold.
                          " expr   : ‘foldexpr’ gives the fold level of a line.
