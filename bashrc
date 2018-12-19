@@ -13,8 +13,9 @@ export uxinwork='/var/www/uxin_sites'
 export testwork='/var/www/test'
 export selfwork='/usr/local/workshell'
 export snip='/usr/local/workshell/vim/bundle/vim-snippets/UltiSnips/php.snippets'
+#export SELFSERVERS='/usr/local/share/servers'
 
-export PATH="$PATH:$selfwork/cshell/command"
+export PATH="$PATH:$selfwork/command"
 
 
 
@@ -44,6 +45,7 @@ alias datefm="echo '======================';date '+%Y-%m-%d %T';echo '==========
 ###########################
 #引入外部文件
 source $selfwork/bash/func.sh
+source $selfwork/bash/services.sh
 
 
 ##########################
