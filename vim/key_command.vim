@@ -69,7 +69,7 @@ vmap <silent> <leader>vv  yOvar_dump('a');exit;<Esc>4blvh%hp:w<CR>
 " 重定义:E命令
 cabbrev E Explore
 cabbrev mkss mksession! $vimss/
-iab funcdes  /**<CR>*<CR>* @author xunyalong<CR>*/<Esc><Left><C-v>%=<Down>A 
+iabbrev funcdes  /**<CR>*<CR>* @author xunyalong<CR>*/<Esc><Left><C-v>%=<Down>A 
 "iabbrev var var_dump();
 
 
