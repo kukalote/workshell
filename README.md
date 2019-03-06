@@ -10,5 +10,9 @@
 
 包括 `sets`, `set keywords`, `plugin`
 
-
+项目初始化
+```bash
+$ git submodule init 
+$ git submodule update 
+```
 
