@@ -161,7 +161,19 @@ set t_RV=
 "    \ set softtabstop=2
 "    \ set shiftwidth=2
 
-au BufNewFile,BufRead  *.py
-    \ set textwidth=100
+"au BufNewFile,BufRead  *.py
+"    \ set textwidth=100
+au BufNewFile,BufRead *.py 
+\ set tabstop=4 | 
+\ set softtabstop=4| 
+\ set shiftwidth=4| 
+\ set textwidth=79| 
+\ set expandtab| 
+\ set autoindent| 
+\ set fileformat=unix
+
+
+
 " 标示不必要的空白字符
+hi BadWhitespace guifg=gray guibg=darkred ctermfg=gray ctermbg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/

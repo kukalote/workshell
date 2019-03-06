@@ -46,7 +46,7 @@ snippet l:funcp "PHP private function" b
  * @param  ${3:type}	${4:value_name}	${5:description} $0
  * @return ${6:return type}
  */
-${9:private} function${8:${VISUAL:functionName}}(${7:$value})`!p snip.rv = ': '+t[2] if isPHPScalarTypesEnabled() else ''`
+${9:private} function ${8:${VISUAL:functionName}}(${7:$value})`!p snip.rv = ': '+t[2] if isPHPScalarTypesEnabled() else ''`
 {
 	if (false) {
 		throw new \Exception('error msg', Result::CODE_ERROR);
@@ -76,7 +76,7 @@ try {
 	$msg = ($e->getCode()==Result::CODE_ERROR)?$e->getMessage():'系统异常';
 	$result->setMsg( $msg )->setCode( Result::CODE_ERROR );
 }
-return $reuslt;
+return $result;
 endsnippet
 
 snippet l:foreach "foreach loop" b
