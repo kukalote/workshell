@@ -1,6 +1,7 @@
 "重载当前配置文件
 " :source $MYVIMRC
-"
+
+" 允许鼠标在终端复制 
 if has("mouse")
     set mouse-=a
 endif
@@ -28,6 +29,7 @@ set autoindent
 set nobackup
 set nowritebackup
 set noswapfile
+set noundofile
 set bufhidden=hide
 
 " 自动切换工作目录 
