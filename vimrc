@@ -1,3 +1,5 @@
+" 查看 vim 加载信息
+" vim --startuptime vimloading
 " 设置前缀命令
 let mapleader = ","
 
