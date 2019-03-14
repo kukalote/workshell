@@ -1,0 +1,11 @@
+#!/bin/bash
+git submodule init 
+git submodule update
+git config --global alias.st 'status'
+git config --global alias.ci 'commit'
+git config --global alias.co 'checkout'
+git config --global alias.gst 'git status'
+git config --global color.ui true
+git config --global credential.helper 'cache'
+git config --global core.quotepath false 
+git config --list

@@ -1,4 +1,5 @@
-
+" 查看 vim 加载信息
+" vim --startuptime vimloading
 " 设置前缀命令
 let mapleader = ","
 
@@ -6,9 +7,6 @@ let mapleader = ","
 let $SELFHOME="/usr/local/workshell/vim"
 let $php_path="/usr/bin/php"
 let $python_path="/usr/bin/python3"
-
-" 引入当前目录下的vim配置
-source $SELFHOME/sets.vim
 
 " 引入当前目录下的vim插件配置
 source $SELFHOME/plug.vim
@@ -19,8 +17,8 @@ source $SELFHOME/key_command.vim
 " 折叠方案
 source $SELFHOME/fold.vim
 
-" 测试文件
-source $SELFHOME/test.vim
-
 " 引入当前目录下的vim配置,防止上面加载有其他操作覆盖
 source $SELFHOME/sets.vim
+
+" 测试文件
+source $SELFHOME/test.vim
