@@ -7,11 +7,11 @@ export cshell_dir=$selfwork'/cshell'
 export current_work_pid='/tmp/current_work_pid'
 
 # 工作目录切换扩展
-# workdirls
-# workdir /tmp
-# workdir 1
-# workdir
-# rmworkdir 1
+# wdls
+# wd /tmp
+# wd 1
+# wd
+# rmwd 1
 
 
 
@@ -113,7 +113,7 @@ isCentOS()
 
 
 # 添加/切换当前工作目录
-workdir () 
+wd () 
 {
     if [ $# -gt 0 ]
     then
@@ -136,24 +136,24 @@ workdir ()
 # 设置当前工作目录
 addWorkDir () 
 {
-    workdir=`realpath $1`
-    echo $workdir >> $current_work_pid
+    wd=`realpath $1`
+    echo $wd >> $current_work_pid
     return 0
 }
 
 # 展示工作目录列表
-workdirls()
+wdls()
 {
     cat -n $current_work_pid
 }
 
 # 删除序号内的工作目录 
-rmworkdir()
+rmwd()
 {
     rmline="$1d"
     cont=`sed $rmline $current_work_pid`
     echo $cont > $current_work_pid
-    workdirls
+    wdls
 }
 
 # 获取工作目录
