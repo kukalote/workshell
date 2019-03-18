@@ -2,6 +2,7 @@ alias rm="rmbak $*";
 alias lsdir="lsdir $*"
 alias open="opengpk $*"
 alias svndiffile="svnLog $*";
+alias rlf="readlink -f $*"
 export crash_dir="/var/crash/"
 export cshell_dir=$selfwork'/cshell'
 export current_work_pid='/tmp/current_work_pid'
