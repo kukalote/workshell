@@ -61,23 +61,39 @@ setenforce 0 2>/dev/null
 which nginx >/dev/null
 if [ $? -eq 0 ] 
 then
-    systemctl start nginx
+    which systemctl >/dev/null
+    if [ $? -eq 0 ] 
+    then
+        systemctl start nginx
+    fi
 fi
 
 which php>/dev/null
 if [ $? -eq 0 ] 
 then
-    systemctl start php-fpm
+    which systemctl >/dev/null
+    if [ $? -eq 0 ] 
+    then
+        systemctl start php-fpm
+    fi
 fi
 
 which mysqld>/dev/null
 if [ $? -eq 0 ] 
 then
-    isCentOS && systemctl start mysqld
+    which systemctl >/dev/null
+    if [ $? -eq 0 ] 
+    then
+        isCentOS && systemctl start mysqld
+    fi
 fi
 
 which redis-server>/dev/null
 if [ $? -eq 0 ] 
 then
-    systemctl start redis
+    which systemctl >/dev/null
+    if [ $? -eq 0 ] 
+    then
+        systemctl start redis
+    fi
 fi
