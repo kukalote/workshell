@@ -1,0 +1,9 @@
+#! /bin/bash
+docker run --name canal-server \
+-e canal.instance.master.address=172.17.0.1:3306 \
+-e canal.instance.dbUsername=canal \
+-e canal.instance.dbPassword=canal \
+-e canal.instance.parser.parallelThreadSize=4 \
+-e canal.instance.filter.regex=test.uesr \
+-p 11111:11111 \
+-d canal/canal-server:latest /bin/sh /home/admin/app.sh

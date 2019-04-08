@@ -1,0 +1,34 @@
+#!/bin/bash
+# sudo /bin/bash ./runDocker
+
+export docker_dir="~/docker"
+
+mkdir -p "$docker_dir/conf/nginx/conf.d"
+mkdir -p "$docker_dir/log/nginx"
+mkdir -p "$docker_dir/log/redis"
+mkdir -p "$docker_dir/lib/mysql"
+mkdir -p "$docker_dir/lib/redis"
+
+#docker run -d --privileged --hostname="centos7-systemd" --name c7-systemd -v /sys/fs/cgroup:/sys/fs/cgroup:ro local/c7-systemd
+
+docker run -d --privileged --hostname="centos7-nginx-php72" --name c7-nginx-php72 -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v "$docker_dir/conf/nginx/conf.d":/etc/nginx/conf.d -v "$docker_dir/log":/var/log -v /var/www:/var/www -p 80:80 local/c7-nginx-php72
+echo "容器 c7-nginx-php72 已配置完成"
+
+
+docker run -d --privileged --hostname="centos7-redis-memcached" --name c7-redis-memcached -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v "$dockerfile_dir/log:/var/log" -v ~/docker/lib:/var/lib -p 11211:11211 -p 6379:6379 local/c7-redis-memcached
+echo "容器 c7-redis-memcached 已配置完成"
+
+#docker run -d --privileged --hostname="centos7-nginx" --name c7-nginx -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v "$docker_dir/conf/nginx/conf.d":/etc/nginx/conf.d -v "$docker_dir/log/nginx":/var/log/nginx -v /var/www:/var/www -P local/c7-nginx
+#echo "容器 c7-nginx 已配置完成"
+
+#docker run -d --privileged --hostname="centos7-php72" --name c7-php72 -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v "$dockerfile_dir/log:/var/log" -P local/c7-php72
+#echo "容器 c7-php72 已配置完成"
+
+#docker run -d --privileged --hostname="centos7-redis" --name c7-redis -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v "$dockerfile_dir/log:/var/log" -v ~/docker/lib:/var/lib -P local/c7-redis
+#echo "容器 c7-redis 已配置完成"
+
+#docker run -d --privileged --hostname="centos7-memcached" --name c7-memcached -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v "$dockerfile_dir/log:/var/log" -v "$dockerfile_dir/lib:/var/lib" -P local/c7-memcached
+#echo "容器 c7-memcached 已配置完成"
+
+docker run -d --privileged --hostname="centos7-mysql57" --name c7-mysql57 -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v ~/docker/lib/mysql:/var/lib/mysql -p 3306:3306 local/c7-systemd-mysql57
+echo "容器 c7-mysql57 已配置完成"

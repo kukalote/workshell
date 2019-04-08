@@ -1,0 +1,36 @@
+#!/bin/bash
+# sudo /bin/bash ./buildDocker
+
+export dockerfile_dir="./docker"
+
+docker pull centos:7
+
+# Centos7 docker 初始化
+docker build --rm -t local/c7-systemd "$dockerfile_dir/centos7"
+#docker run -it --privileged --hostname="centos7-systemd" --name c7-systemd -v /sys/fs/cgroup:/sys/fs/cgroup:ro local/c7-systemd /bin/bash
+echo "容器 centos7 已配置完成"
+
+# nginx docker-php72初始化
+docker build --rm -t local/c7-nginx-php72 "$dockerfile_dir/nginx-php72"
+echo "容器 nginx-php72 已配置完成"
+
+# redis docker初始化
+docker build --rm -t local/c7-redis-memcached "$dockerfile_dir/redis-memcached"
+echo "容器 redis-memcached 已配置完成"
+
+
+# nginx docker-nginx 初始化
+#docker build --rm -t local/c7-nginx "$dockerfile_dir/nginx"
+
+# nginx docker-php72 初始化
+#docker build --rm -t local/c7-php72 "$dockerfile_dir/php72"
+
+# redis docker-redis 初始化
+#docker build --rm -t local/c7-redis "$dockerfile_dir/redis"
+
+# memcached docker-memcached 初始化
+#docker build --rm -t local/c7-memcached "$dockerfile_dir/memcached"
+
+# Mysql docker初始化
+docker build --rm -t local/c7-mysql57 "$dockerfile_dir/mysql57"
+echo "窗口 mysql57 已配置完成"
