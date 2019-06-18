@@ -46,6 +46,7 @@ alias datefm="echo '======================';date '+%Y-%m-%d %T';echo '==========
 #引入外部文件
 source $selfwork/bash/func.sh
 source $selfwork/bash/services.sh
+source $selfwork/bash/go.sh
 
 
 ##########################
