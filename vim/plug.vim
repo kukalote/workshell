@@ -13,9 +13,6 @@
     "3. 不在Github上的插件，需要写出git全路径
 
 
-    " let Vundle manage Vundle, required
-    Plugin 'VundleVim/Vundle.vim'
-
     " The following are examples of different formats supported.
     " Keep Plugin commands between vundle#begin/end.
     " plugin on GitHub repo
@@ -33,16 +30,23 @@
     " different version somewhere else.
 "    Plugin 'ascenator/L9', {'name': 'newL9'}
 "    Plugin 'nerdtree'
+
+"   编辑器功能扩展
+    " let Vundle manage Vundle, required                                                                                                         
+"    Bundle 'Lokaltog/vim-powerline' 
+    Plugin 'VundleVim/Vundle.vim'
     Bundle 'scrooloose/syntastic'
     Bundle 'taglist.vim'
     Plugin 'scrooloose/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-"    Bundle 'Lokaltog/vim-powerline' 
     Bundle 'Valloric/YouCompleteMe'
 
+"   代码支持
     Plugin 'SirVer/ultisnips'
     Bundle "honza/vim-snippets"
+
+"   语言支持
+    Plugin 'fatih/vim-go'
 "    Plugin 'shawncplus/phpcomplete.vim'
 
     " All of your Plugins must be added before the following line

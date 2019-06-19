@@ -11,12 +11,12 @@ docker build --rm -t local/c7-systemd "$dockerfile_dir/centos7"
 echo "容器 centos7 已配置完成"
 
 # nginx docker-php72初始化
-docker build --rm -t local/c7-nginx-php72 "$dockerfile_dir/nginx-php72"
-echo "容器 nginx-php72 已配置完成"
+#docker build --rm -t local/c7-nginx-php72 "$dockerfile_dir/nginx-php72"
+#echo "容器 nginx-php72 已配置完成"
 
 # redis docker初始化
-docker build --rm -t local/c7-redis-memcached "$dockerfile_dir/redis-memcached"
-echo "容器 redis-memcached 已配置完成"
+#docker build --rm -t local/c7-redis-memcached "$dockerfile_dir/redis-memcached"
+#echo "容器 redis-memcached 已配置完成"
 
 
 # nginx docker-nginx 初始化
@@ -32,5 +32,5 @@ echo "容器 redis-memcached 已配置完成"
 #docker build --rm -t local/c7-memcached "$dockerfile_dir/memcached"
 
 # Mysql docker初始化
-docker build --rm -t local/c7-mysql57 "$dockerfile_dir/mysql57"
-echo "窗口 mysql57 已配置完成"
+#docker build --rm -t local/c7-mysql57 "$dockerfile_dir/mysql57"
+#echo "窗口 mysql57 已配置完成"
