@@ -11,8 +11,10 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 # nginx-php72源
-RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm;
-RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
-RUN yum update;
+RUN yum -y upgrade;\
+#RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm;\
+#rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;\
+yum clean all;
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
+#docker run -it --privileged --hostname="centos7-systemd" --name c7-systemd -v /sys/fs/cgroup:/sys/fs/cgroup:ro local/c7-systemd /bin/bash

@@ -65,7 +65,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        systemctl start nginx
+        sudo -S systemctl start nginx
     fi
 fi
 
@@ -75,7 +75,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        systemctl start php-fpm
+        sudo -S systemctl start php-fpm
     fi
 fi
 
@@ -85,7 +85,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        isCentOS && systemctl start mysqld
+        sudo -S isCentOS && systemctl start mysqld
     fi
 fi
 
@@ -95,6 +95,6 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        systemctl start redis
+        sudo -S systemctl start redis-server
     fi
 fi
