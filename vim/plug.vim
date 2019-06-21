@@ -175,10 +175,9 @@
 
 "YouCompleteMe {
     " https://github.com/Valloric/YouCompleteMe
-    let g:ycm_server_python_interpreter=$python_path
+    let g:ycm_server_python_interpreter=$python3_path
     let g:ycm_global_ycm_extra_conf='/usr/local/workshell/vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 
-    let g:ycm_server_python_interpreter = ''
     " 开启基于tag的补全，可以在这之后添加需要的标签路径
     let g:ycm_collect_identifiers_from_tags_files=1
 

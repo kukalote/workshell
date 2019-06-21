@@ -6,7 +6,8 @@ let mapleader = ","
 " 设置变量
 let $SELFHOME="/usr/local/workshell/vim"
 let $php_path="/usr/bin/php"
-let $python_path="/usr/bin/python3"
+let $python_path="/usr/bin/python"
+let $python3_path="/usr/bin/python3"
 
 " 引入当前目录下的vim插件配置
 source $SELFHOME/plug.vim
