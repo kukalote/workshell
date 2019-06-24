@@ -55,7 +55,7 @@ setenforce 0 2>/dev/null
 # 命令行以 vim 模式操作
 #set -o vi
 
-
+echo isCentOs()
 
 # 启动服务
 which nginx >/dev/null
@@ -64,7 +64,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S systemctl start nginx
+        systemctl start nginx
     fi
 fi
 
@@ -74,7 +74,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S systemctl start php-fpm
+        systemctl start php-fpm
     fi
 fi
 
@@ -84,7 +84,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S isCentOS && systemctl start mysqld
+        isCentOS && systemctl start mysqld
     fi
 fi
 
@@ -94,6 +94,6 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S systemctl start redis-server
+        systemctl start redis
     fi
 fi
