@@ -4,21 +4,23 @@ export EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# 工具环境目录
+export selfwork="/Users/yundongjiutian/workshell/"
+# 代码目录
+export programdir="/var/www"
+# 其他目录
+# $selfwork/../vimsession/
+# $selfwork/../crash/
 
-export nginxlog='/var/log/nginx'
-export nginxconf='/etc/nginx/conf.d'
-export vimss='/var/vimsession/'
-export uxinwork='/var/www/uxin_sites/'
-export testwork='/var/www/test/'
-export selfwork='/usr/local/workshell/'
+export vimss="$selfwork/../vimsession/"
+export uxinwork="$programdir/uxin_sites/"
+export testwork="$programdir/test/"
 export snip="$selfwork/vim/bundle/vim-snippets/UltiSnips/php.snippets"
-#export SELFSERVERS='/usr/local/share/servers'
-
 export PATH="$PATH:$selfwork/command"
 
 
 
-PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
+#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
 #PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)$ '
 
 
@@ -55,7 +57,7 @@ setenforce 0 2>/dev/null
 # 命令行以 vim 模式操作
 #set -o vi
 
-echo isCentOs()
+#echo isCentOs()
 
 # 启动服务
 which nginx >/dev/null
