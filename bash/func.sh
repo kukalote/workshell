@@ -3,9 +3,7 @@ alias lsdir="lsdir $*"
 alias open="opengpk $*"
 alias svndiffile="svnLog $*";
 alias rlf="readlink -f $*"
-export crash_dir="$selfwork/../crash/"
 export cshell_dir="$selfwork/cshell"
-export current_work_pid="$selfwork/../current_work_pid"
 
 # 工作目录切换扩展
 # wdls

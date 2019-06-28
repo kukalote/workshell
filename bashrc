@@ -5,14 +5,34 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # 工具环境目录
-export selfwork="/Users/yundongjiutian/workshell/"
+export selfwork="$HOME/workshell"
 # 代码目录
-export programdir="/var/www"
-# 其他目录
-# $selfwork/../vimsession/
-# $selfwork/../crash/
-
+export programdir="$selfwork/../www"
+# 代码缓存目录
 export vimss="$selfwork/../vimsession/"
+# 垃圾暂存目录
+export crash_dir="$selfwork/../crash/"
+# 工作快捷目录缓存文件
+export current_work_pid="$selfwork/../current_work_pid"
+
+
+if [ ! -d '$programdir' ]
+then
+    mkdir -p $programdir
+fi
+if [ ! -d '$vimss' ]
+then
+    mkdir -p $vimss
+fi
+if [ ! -d '$vimss' ]
+then
+    mkdir -p $vimss
+fi
+if [ ! -f $current_work_pid ]
+then
+    touch $current_work_pid
+fi
+
 export uxinwork="$programdir/uxin_sites/"
 export testwork="$programdir/test/"
 export snip="$selfwork/vim/bundle/vim-snippets/UltiSnips/php.snippets"
