@@ -15,17 +15,8 @@ export crash_dir="$selfwork/../crash/"
 # 工作快捷目录缓存文件
 export current_work_pid="$selfwork/../current_work_pid"
 
-<<<<<<< HEAD
 export nginxlog='/var/log/nginx'
 export nginxconf='/etc/nginx/conf.d'
-export vimss='/var/vimsession/'
-export uxinwork='/var/www/uxin_sites/'
-export testwork='/var/www/test/'
-export selfwork='/usr/local/workshell/'
-export snip="$selfwork/vim/bundle/vim-snippets/UltiSnips/php.snippets"
-#export SELFSERVERS='/usr/local/share/servers'
-=======
->>>>>>> 0162ff4fb68e44864f83153b80a4eb16d2517172
 
 if [ ! -d '$programdir' ]
 then
@@ -35,9 +26,9 @@ if [ ! -d '$vimss' ]
 then
     mkdir -p $vimss
 fi
-if [ ! -d '$vimss' ]
+if [ ! -d '$crash_dir' ]
 then
-    mkdir -p $vimss
+    mkdir -p $crash_dir
 fi
 if [ ! -f $current_work_pid ]
 then
