@@ -4,7 +4,18 @@ export EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# 工具环境目录
+export selfwork="$HOME/workshell"
+# 代码目录
+export programdir="$selfwork/../www"
+# 代码缓存目录
+export vimss="$selfwork/../vimsession/"
+# 垃圾暂存目录
+export crash_dir="$selfwork/../crash/"
+# 工作快捷目录缓存文件
+export current_work_pid="$selfwork/../current_work_pid"
 
+<<<<<<< HEAD
 export nginxlog='/var/log/nginx'
 export nginxconf='/etc/nginx/conf.d'
 export vimss='/var/vimsession/'
@@ -13,12 +24,34 @@ export testwork='/var/www/test/'
 export selfwork='/usr/local/workshell/'
 export snip="$selfwork/vim/bundle/vim-snippets/UltiSnips/php.snippets"
 #export SELFSERVERS='/usr/local/share/servers'
+=======
+>>>>>>> 0162ff4fb68e44864f83153b80a4eb16d2517172
 
+if [ ! -d '$programdir' ]
+then
+    mkdir -p $programdir
+fi
+if [ ! -d '$vimss' ]
+then
+    mkdir -p $vimss
+fi
+if [ ! -d '$vimss' ]
+then
+    mkdir -p $vimss
+fi
+if [ ! -f $current_work_pid ]
+then
+    touch $current_work_pid
+fi
+
+export uxinwork="$programdir/uxin_sites/"
+export testwork="$programdir/test/"
+export snip="$selfwork/vim/bundle/vim-snippets/UltiSnips/php.snippets"
 export PATH="$PATH:$selfwork/command"
 
 
 
-PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
+#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}' 
 #PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)$ '
 
 
@@ -55,7 +88,7 @@ setenforce 0 2>/dev/null
 # 命令行以 vim 模式操作
 #set -o vi
 
-
+#echo isCentOs()
 
 # 启动服务
 which nginx >/dev/null
@@ -64,7 +97,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S systemctl start nginx
+        systemctl start nginx
     fi
 fi
 
@@ -74,7 +107,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S systemctl start php-fpm
+        systemctl start php-fpm
     fi
 fi
 
@@ -84,7 +117,7 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S isCentOS && systemctl start mysqld
+        isCentOS && systemctl start mysqld
     fi
 fi
 
@@ -94,6 +127,6 @@ then
     which systemctl >/dev/null
     if [ $? -eq 0 ] 
     then
-        sudo -S systemctl start redis-server
+        systemctl start redis
     fi
 fi
