@@ -66,6 +66,11 @@ map <leader>< :s/^\(.*\)$/<!-- \1 -->/<CR>:noh<CR>
 nmap <silent> <leader>var ovar_dump('a');exit;<Esc>:w<CR>4blvh%h
 vmap <silent> <leader>vv  yOvar_dump('a');exit;<Esc>4blvh%hp:w<CR>
 
+" 格式化括号
+nmap <silent> <leader>( :%s/(\s/(/g<CR>:%s/\s)/)/g<CR>
+nmap <silent> <leader>if :%s/if(/if (/g<CR>
+":%s/for(/for (/g<CR>:noh<CR>:%s/foreach(/foreach (/g<CR>:%s/}else/} else/g<CR>:%s/else{/else {/g<CR>
+
 " 重定义:E命令
 cabbrev E Explore
 cabbrev mkss mksession! $vimss/

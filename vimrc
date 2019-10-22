@@ -2,9 +2,8 @@
 " vim --startuptime vimloading
 " 设置前缀命令
 let mapleader = ","
-
 " 设置变量
-let $SELFHOME="/usr/local/workshell/vim"
+let $SELFHOME="/root/workshell/vim"
 let $php_path="/usr/bin/php"
 let $python_path="/usr/bin/python"
 let $python3_path="/usr/bin/python3"

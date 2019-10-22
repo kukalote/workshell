@@ -8,4 +8,6 @@ git config --global alias.gst 'git status'
 git config --global color.ui true
 git config --global credential.helper 'cache'
 git config --global core.quotepath false 
+git config --global user.name "xunyalong"
+git config --global user.email xunyalong@example.com
 git config --list
