@@ -1,4 +1,3 @@
-
 # 配置
 export EDITOR=vim
 
@@ -12,7 +11,7 @@ export vimss='/var/vimsession/'
 export uxinwork='/var/www/uxin_sites/'
 export testwork='/var/www/test/'
 export selfwork='/usr/local/workshell/'
-export snip='/usr/local/workshell/vim/bundle/vim-snippets/UltiSnips/php.snippets'
+export snip="$selfwork/vim/bundle/vim-snippets/UltiSnips/php.snippets"
 #export SELFSERVERS='/usr/local/share/servers'
 
 export PATH="$PATH:$selfwork/command"
